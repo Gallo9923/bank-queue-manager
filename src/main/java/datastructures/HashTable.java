@@ -60,12 +60,12 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 		this(11, 0.75);
 	}
 	
-	public int hash2Index(int hashCode) {
+	private int hash2Index(int hashCode) {
 //		return (int) Math.floor(table.length * (Math.abs(hashCode * A) % 1));
 		return (hashCode & 0x7FFFFFFF) % table.length;
 	}
 
-	public int getIndex(int hashCode, int i) {
+	private int getIndex(int hashCode, int i) {
 		return hash2Index(hashCode() + ((i << 5) - i));
 	}
 	
@@ -144,7 +144,7 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 	}
 
 	@SuppressWarnings("unchecked")
-	public Entry<K,V> searchEntry(K key){
+	private Entry<K,V> searchEntry(K key){
 		Entry<K, V>[] tab = (Entry<K, V>[]) table;
 		int i = 0;
 		
@@ -162,9 +162,8 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 		return null;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
-	public void rehash() {
+	private void rehash() {
         int oldCapacity = table.length;
         Entry<K,V>[] oldMap = (Entry<K,V>[]) table;
 
@@ -203,5 +202,10 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 		res += "}";
 		
 		return res;
+	}
+
+	@Override
+	public int size() {
+		return size;
 	}
 }

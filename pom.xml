@@ -7,6 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Bank Queue Manager</name>
 	<description>The project of the first Integrator Homework of Data Structures and Algorithms </description>
+	 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
@@ -28,13 +29,6 @@
 			<groupId>de.jensd</groupId>
 			<artifactId>fontawesomefx</artifactId>
 			<version>8.9</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.kordamp.bootstrapfx/bootstrapfx-core -->
-		<dependency>
-			<groupId>org.kordamp.bootstrapfx</groupId>
-			<artifactId>bootstrapfx-core</artifactId>
-			<version>0.2.1</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->

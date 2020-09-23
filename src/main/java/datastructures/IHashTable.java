@@ -8,5 +8,6 @@ public interface IHashTable<K, V> {
 	
 	public V get(K key);
 	
-	public void rehash();
+	public int size();
+	
 }
