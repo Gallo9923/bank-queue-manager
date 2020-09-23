@@ -2,103 +2,149 @@ package utils.sorting;
 
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
 public class TestSorter {
 
-	private final String PACKAGE_NAME = this.getClass().getPackage().getName();
-	private final int MAX_SIZE_LIMIT = 2000;
-
-	private List<Integer> list;
 	private Comparator<Integer> comp = Integer::compare;
-	private String[] sortingAlgorithmsClassNames = new String[] { "QuickSorter", 
-			"MergeSorter", "QuickSort", "HeapSort" };
+	private List<Integer> input;
+	private List<Integer> expectedOutput;
 
-	public TestSorter() {
-		System.out.println("Existo");
+	public void setupMerge1() {
+		input = list(27, 98, 3, 43);
+		expectedOutput = list(3, 27, 43, 98);
 	}
-	
+
+	public void setupMerge2() {
+		input = list(3, 27, 43, 98, 9, 10, 82);
+		expectedOutput = list(3, 9, 10, 27, 43, 82, 90);
+	}
+
+	public void setupSorting1() {
+		input = list(2, 3, 3, 1, 5, 84, 4, 23);
+		expectedOutput = list(1, 2, 3, 3, 4, 5, 23, 84);
+	}
+
+	public void setupSorting2() {
+		input = list(-2, -2, -2, -2, -2, -2, -2);
+		expectedOutput = list(-2, -2, -2, -2, -2, -2, -2);
+	}
+
+	public void setupSorting3() {
+		input = list(-10000, 10000, 0);
+		expectedOutput = list(-10000, 0, 10000);
+	}
+
 	@Test
-	public void testSortingAlgorithms() {
-		for (String sortingAlgorithmClassName : sortingAlgorithmsClassNames) {
-			String classLocation = PACKAGE_NAME + "." + sortingAlgorithmClassName;
-			Sortable<Integer> sortingAlgorithm = getInstanceOf(classLocation);
-			if(sortingAlgorithm == null) {
-				
-			}
-			setupRandomList();
-
-			sortingAlgorithm.sort(list);
-			boolean isSorted = isSorted(list);
-			String output = list.toString();
-
-			list.sort(comp);
-			String sorted = list.toString();
-
-			String message = "";
-			if (!isSorted) {
-				message += sortingAlgorithmClassName + 
-						" is not sorting properly. \nList should be " 
-						+ sorted + ", not "
-						+ output;
-			}
-
-			assertTrue(message, !isSorted);
-		}
+	public void testMerge1() {
+		setupMerge1();
+		int m = (input.size() - 1) / 2;
+		Sorter.merge(input, 0, m, input.size() - 1, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
 
-	@SuppressWarnings("unchecked")
-	public Sortable<Integer> getInstanceOf(String className) {
-		Sortable<Integer> sortingAlgorithmInstance = null;
-		try {
-			Class<?> sortingAlgorithmClass;
-			sortingAlgorithmClass = Class.forName(className);
-			Class<?>[] type = { Comparator.class };
-			Constructor<?> cons = sortingAlgorithmClass.getConstructor(type);
-			sortingAlgorithmInstance = (Sortable<Integer>) cons.newInstance(comp);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return sortingAlgorithmInstance;
+	@Test
+	public void testMerge2() {
+		setupMerge2();
+		int m = (input.size() - 1) / 2;
+		Sorter.merge(input, 0, m, input.size() - 1, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
 
-	public void setupRandomList() {
-		int randomSize = ThreadLocalRandom.current().nextInt(2, MAX_SIZE_LIMIT + 1);
-		int randomMaxNumber = ThreadLocalRandom.current().nextInt(2, 10);
-		Integer[] randomArray = new Integer[randomSize];
-
-		for (int i = 0; i < randomArray.length; i++)
-			randomArray[i] = ThreadLocalRandom.current().nextInt(2, randomMaxNumber + 1);
-
-		this.list = Arrays.asList(randomArray);
+	@Test
+	public void testHeapSort1() {
+		setupSorting1();
+		Sorter.heapSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
 
-	public static <T extends Comparable<T>> boolean isSorted(List<T> list) {
-		T previous = null;
-		for (T t : list) {
-			if (previous != null && t.compareTo(previous) <= 0)
-				return false;
-			previous = t;
-		}
-		return true;
+	@Test
+	public void testHeapSort2() {
+		setupSorting2();
+		Sorter.heapSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testHeapSort3() {
+		setupSorting3();
+		Sorter.heapSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testQuickSort1() {
+		setupSorting1();
+		Sorter.quickSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testQuickSort2() {
+		setupSorting2();
+		Sorter.quickSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testQuickSort3() {
+		setupSorting3();
+		Sorter.quickSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testMergeSort1() {
+		setupSorting1();
+		Sorter.mergeSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testMergeSort2() {
+		setupSorting2();
+		Sorter.mergeSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testMergeSort3() {
+		setupSorting3();
+		Sorter.mergeSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testTimSort1() {
+		setupSorting1();
+		Sorter.timSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testTimSort2() {
+		setupSorting2();
+		Sorter.timSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testTimSort3() {
+		setupSorting3();
+		Sorter.timSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@SafeVarargs
+	public static <E> List<E> list(E... elements) {
+		return Arrays.asList(elements);
+	}
+
+	public static <E> String failMessage(List<E> expectedList, List<E> actualList) {
+		return "List is " + actualList+ " but should be " + expectedList;
 	}
 }
