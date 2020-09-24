@@ -25,6 +25,11 @@ public class TestSorter {
 		expectedOutput = Sorter.list(3, 27, 43, 98);
 	}
 
+	public void setupMerge3() {
+		input = Sorter.list(-100, 1, 50, 200, 0, 1, 2, 3, 8, 50, 60);
+		expectedOutput = Sorter.list(-100, 0, 1, 1, 2, 3, 8, 50, 50, 60, 200);
+	}
+	
 	public void setupSorting1() {
 		input = Sorter.list(2, 3, 3, 1, 5, 84, 4, 23, 40);
 		expectedOutput = Sorter.list(1, 2, 3, 3, 4, 5, 23, 40, 84);
@@ -64,7 +69,7 @@ public class TestSorter {
 		List<Integer> right = new ArrayList<>(m+1);
 		input.subList(m, n).forEach(right::add);
 
-		new MergeSorter<Integer>(comp).merge(input, right, left, m, n - m);
+		new MergeSorter<Integer>(comp).merge(input, right, left);
 		System.out.println(input);
 		
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
@@ -82,10 +87,25 @@ public class TestSorter {
 		List<Integer> right = new ArrayList<>(m+1);
 		input.subList(m, n).forEach(right::add);
 
-		new MergeSorter<Integer>(comp).merge(input, right, left, m, n - m);
+		new MergeSorter<Integer>(comp).merge(input, right, left);
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
 
+	@Test
+	public void testMerge3() {
+		setupMerge3();
+		int n = input.size();
+		
+		List<Integer> left = new ArrayList<>();
+		input.subList(0, 4).forEach(left::add); // -100, 1, 50, 200
+
+		List<Integer> right = new ArrayList<>(); 
+		input.subList(4, n).forEach(right::add); // 0, 1, 2, 3, 8, 50, 60
+		
+		new MergeSorter<Integer>(comp).merge(input, right, left);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+	
 	@Test
 	public void testInsertionSort1() {
 		setupSorting1();

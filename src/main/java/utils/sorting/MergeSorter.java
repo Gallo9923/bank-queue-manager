@@ -31,10 +31,10 @@ public class MergeSorter<E> implements Sortable<E> {
 		sort(left, mid);
 		sort(right, n - mid);
 
-		merge(list, left, right, mid, n - mid);
+		merge(list, left, right);
 	}
 
-	public void merge(List<E> list, List<E> leftList, List<E> rightList, int left, int right) {
+	public void merge(List<E> list, List<E> leftList, List<E> rightList) {
 		int leftPointer = 0, rightPointer = 0, resultPointer = 0;
 
 		while (leftPointer < leftList.size() || rightPointer < rightList.size()) {
