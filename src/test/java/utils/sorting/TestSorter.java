@@ -2,6 +2,7 @@ package utils.sorting;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -15,46 +16,98 @@ public class TestSorter {
 	private List<Integer> expectedOutput;
 
 	public void setupMerge1() {
-		input = list(27, 98, 3, 43);
-		expectedOutput = list(3, 27, 43, 98);
+		input = Sorter.list(-100, 1, 50, 200, 0, 1, 2, 3, 8);
+		expectedOutput = Sorter.list(-100, 0, 1, 1, 2, 3, 8, 50, 200);
 	}
 
 	public void setupMerge2() {
-		input = list(3, 27, 43, 98, 9, 10, 82);
-		expectedOutput = list(3, 9, 10, 27, 43, 82, 90);
+		input = Sorter.list(27, 98, 3, 43);
+		expectedOutput = Sorter.list(3, 27, 43, 98);
 	}
 
 	public void setupSorting1() {
-		input = list(2, 3, 3, 1, 5, 84, 4, 23);
-		expectedOutput = list(1, 2, 3, 3, 4, 5, 23, 84);
+		input = Sorter.list(2, 3, 3, 1, 5, 84, 4, 23, 40);
+		expectedOutput = Sorter.list(1, 2, 3, 3, 4, 5, 23, 40, 84);
 	}
 
 	public void setupSorting2() {
-		input = list(-2, -2, -2, -2, -2, -2, -2);
-		expectedOutput = list(-2, -2, -2, -2, -2, -2, -2);
+		Integer[] unsorted = new Integer[16];
+		
+		int i = 0;
+		for(int j = unsorted.length; j >= 1; j--) {
+			unsorted[i] = j;
+			i++;
+		}
+		
+		input = Arrays.asList(unsorted);
+		
+		Integer[] sorted =  Arrays.copyOf(unsorted, unsorted.length);
+		Arrays.sort(sorted);
+		
+		expectedOutput = Arrays.asList(sorted);
 	}
 
 	public void setupSorting3() {
-		input = list(-10000, 10000, 0);
-		expectedOutput = list(-10000, 0, 10000);
+		input = Sorter.list(-10000, 10000, 0);
+		expectedOutput = Sorter.list(-10000, 0, 10000);
 	}
 
 	@Test
 	public void testMerge1() {
 		setupMerge1();
-		int m = (input.size() - 1) / 2;
-		Sorter.merge(input, 0, m, input.size() - 1, comp);
+		int n = input.size();
+		int m = n / 2 ; 
+		
+		List<Integer> left = new ArrayList<>(m+1);
+		input.subList(0, m).forEach(left::add);
+
+		List<Integer> right = new ArrayList<>(m+1);
+		input.subList(m, n).forEach(right::add);
+
+		new MergeSorter<Integer>(comp).merge(input, right, left, m, n - m);
+		System.out.println(input);
+		
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
+	}
+	
+	@Test
+	public void testMerge2() {
+		setupMerge2();
+		int n = input.size();
+		int m = n / 2;
+		
+		List<Integer> left = new ArrayList<>(m+1);
+		input.subList(0, m).forEach(left::add);
+
+		List<Integer> right = new ArrayList<>(m+1);
+		input.subList(m, n).forEach(right::add);
+
+		new MergeSorter<Integer>(comp).merge(input, right, left, m, n - m);
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
 
 	@Test
-	public void testMerge2() {
-		setupMerge2();
-		int m = (input.size() - 1) / 2;
-		Sorter.merge(input, 0, m, input.size() - 1, comp);
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	public void testInsertionSort1() {
+		setupSorting1();
+		Sorter.insertionSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
+	}
+	
+	@Test
+	public void testInsertionSort2() {
+		setupSorting2();
+		Sorter.insertionSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
+	}
+	
+	@Test
+	public void testInsertionSort3() {
+		setupSorting3();
+		Sorter.insertionSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
 	}
 
+	
 	@Test
 	public void testHeapSort1() {
 		setupSorting1();
@@ -110,38 +163,12 @@ public class TestSorter {
 		Sorter.mergeSort(input, comp);
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
-
+	
 	@Test
 	public void testMergeSort3() {
 		setupSorting3();
 		Sorter.mergeSort(input, comp);
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
-	}
-
-	@Test
-	public void testTimSort1() {
-		setupSorting1();
-		Sorter.timSort(input, comp);
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
-	}
-
-	@Test
-	public void testTimSort2() {
-		setupSorting2();
-		Sorter.timSort(input, comp);
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
-	}
-
-	@Test
-	public void testTimSort3() {
-		setupSorting3();
-		Sorter.timSort(input, comp);
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
-	}
-
-	@SafeVarargs
-	public static <E> List<E> list(E... elements) {
-		return Arrays.asList(elements);
 	}
 
 	public static <E> String failMessage(List<E> expectedList, List<E> actualList) {
