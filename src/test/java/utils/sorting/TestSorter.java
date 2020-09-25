@@ -37,18 +37,18 @@ public class TestSorter {
 
 	public void setupSorting2() {
 		Integer[] unsorted = new Integer[16];
-		
+
 		int i = 0;
-		for(int j = unsorted.length; j >= 1; j--) {
+		for (int j = unsorted.length; j >= 1; j--) {
 			unsorted[i] = j;
 			i++;
 		}
-		
+
 		input = Arrays.asList(unsorted);
-		
-		Integer[] sorted =  Arrays.copyOf(unsorted, unsorted.length);
+
+		Integer[] sorted = Arrays.copyOf(unsorted, unsorted.length);
 		Arrays.sort(sorted);
-		
+
 		expectedOutput = Arrays.asList(sorted);
 	}
 
@@ -61,30 +61,29 @@ public class TestSorter {
 	public void testMerge1() {
 		setupMerge1();
 		int n = input.size();
-		int m = n / 2 ; 
-		
-		List<Integer> left = new ArrayList<>(m+1);
+		int m = n / 2;
+
+		List<Integer> left = new ArrayList<>(m + 1);
 		input.subList(0, m).forEach(left::add);
 
-		List<Integer> right = new ArrayList<>(m+1);
+		List<Integer> right = new ArrayList<>(m + 1);
 		input.subList(m, n).forEach(right::add);
 
 		new MergeSorter<Integer>(comp).merge(input, right, left);
-		System.out.println(input);
-		
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
+
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
-	
+
 	@Test
 	public void testMerge2() {
 		setupMerge2();
 		int n = input.size();
 		int m = n / 2;
-		
-		List<Integer> left = new ArrayList<>(m+1);
+
+		List<Integer> left = new ArrayList<>(m + 1);
 		input.subList(0, m).forEach(left::add);
 
-		List<Integer> right = new ArrayList<>(m+1);
+		List<Integer> right = new ArrayList<>(m + 1);
 		input.subList(m, n).forEach(right::add);
 
 		new MergeSorter<Integer>(comp).merge(input, right, left);
@@ -95,39 +94,38 @@ public class TestSorter {
 	public void testMerge3() {
 		setupMerge3();
 		int n = input.size();
-		
+
 		List<Integer> left = new ArrayList<>();
 		input.subList(0, 4).forEach(left::add); // -100, 1, 50, 200
 
-		List<Integer> right = new ArrayList<>(); 
+		List<Integer> right = new ArrayList<>();
 		input.subList(4, n).forEach(right::add); // 0, 1, 2, 3, 8, 50, 60
-		
+
 		new MergeSorter<Integer>(comp).merge(input, right, left);
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
-	
+
 	@Test
 	public void testInsertionSort1() {
 		setupSorting1();
 		Sorter.insertionSort(input, comp);
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
-	
+
 	@Test
 	public void testInsertionSort2() {
 		setupSorting2();
 		Sorter.insertionSort(input, comp);
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
-	
+
 	@Test
 	public void testInsertionSort3() {
 		setupSorting3();
 		Sorter.insertionSort(input, comp);
-		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));		
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
 
-	
 	@Test
 	public void testHeapSort1() {
 		setupSorting1();
@@ -183,7 +181,7 @@ public class TestSorter {
 		Sorter.mergeSort(input, comp);
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
-	
+
 	@Test
 	public void testMergeSort3() {
 		setupSorting3();
@@ -192,6 +190,6 @@ public class TestSorter {
 	}
 
 	public static <E> String failMessage(List<E> expectedList, List<E> actualList) {
-		return "List is " + actualList+ " but should be " + expectedList;
+		return "List is " + actualList + " but should be " + expectedList;
 	}
 }

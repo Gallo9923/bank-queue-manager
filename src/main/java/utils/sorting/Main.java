@@ -13,27 +13,9 @@ public class Main {
 //		int mid = n / 2;
 		
 		List<Integer> list = Sorter.list(-100, 1, 50, 200, 0, 1, 2, 3, 8, 50, 60);
-		sorter.merge(list, Sorter.list(-100, 1, 50, 200), Sorter.list(0, 1, 2, 3, 8, 50, 60));
-		System.out.println(list);
+		System.out.println(Sorter.quickSorted(list, Integer::compare));
 		
 //		merge(nums, numsl, numsr, mid, n - mid);
 //		System.out.println(Arrays.toString(nums));
-	}
-
-	public static void merge(int[] a, int[] l, int[] r, int left, int right) {
-		int i = 0, j = 0, k = 0;
-		while (i < left && j < right) {
-			if (l[i] <= r[j]) {
-				a[k++] = l[i++];
-			} else {
-				a[k++] = r[j++];
-			}
-		}
-		while (i < left) {
-			a[k++] = l[i++];
-		}
-		while (j < right) {
-			a[k++] = r[j++];
-		}
 	}
 }

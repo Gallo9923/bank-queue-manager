@@ -3,12 +3,17 @@ package utils.sorting;
 import java.util.Comparator;
 import java.util.List;
 
-class HeapSorter<T> implements Sortable<T>{
-	
-	private Comparator<T> comp;
-	
+/**
+ * Implementation of the HeapSort algorithm.
+ * 
+ * @author Juan Fernando Angulo.
+ *
+ * @param <T>, any type.
+ */
+class HeapSorter<T> extends SortingAlgorithm<T> {
+		
 	public HeapSorter(Comparator<T> comp) {
-		this.comp = comp;
+		super(comp);
 	}
 	
 	public void sort(List<T> arr) { 
