@@ -27,10 +27,6 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 		}
 	}
 	
-	/**
-	 * Constant used for applying multiplication method of hash function;
-	 */
-	private final double A = 0.6180339887;
 	private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 	private Entry<?, ?> table[];
 	private int threshold;
@@ -61,12 +57,11 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 	}
 	
 	private int hash2Index(int hashCode) {
-//		return (int) Math.floor(table.length * (Math.abs(hashCode * A) % 1));
 		return (hashCode & 0x7FFFFFFF) % table.length;
 	}
 
 	private int getIndex(int hashCode, int i) {
-		return hash2Index(hashCode() + ((i << 5) - i));
+		return hash2Index(hashCode + ((i << 5) - i));
 	}
 	
 	@Override
@@ -181,6 +176,7 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
         
         threshold = (int) Math.min(newCapacity * loadFactor, MAX_ARRAY_SIZE + 1);
         
+        this.size = 0;
         for(int i = 0; i < oldMap.length; i++) 
         	if (oldMap[i] != null) 
         		put( oldMap[i].key, oldMap[i].value);

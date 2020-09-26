@@ -10,7 +10,7 @@ import java.util.List;
  * @param <T>, any type.
  */
 abstract class SortingAlgorithm<T> implements Sortable<T> {
-
+	
 	/** Comparator that defines the sorting property */
 	protected Comparator<T> comp;
 

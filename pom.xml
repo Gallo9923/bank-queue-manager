@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Bank Queue Manager</name>
 	<description>The project of the first Integrator Homework of Data Structures and Algorithms </description>
-	 
+	  
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
