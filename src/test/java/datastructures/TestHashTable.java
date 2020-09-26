@@ -15,7 +15,7 @@ public class TestHashTable {
 	public void testPut() {
 		emptySetup();
 		table.put("one", 1);	
-		assertTrue("The HashTable does not count the first object added", table.size() == 1);
+		assertTrue("The HashTable does not count the first object added ", table.size() == 1);
 		assertTrue("The HashTable does not contain the new key added", table.containsKey("one"));
 	}
 	
@@ -38,7 +38,7 @@ public class TestHashTable {
 		table.put("one", 3);
 		table.put("one", 4);
 		
-		assertTrue( "Table does not override values of duplicate keys", table.get("one").equals(1));
+		assertTrue( "Table does not override values of duplicate keys", table.get("one").equals(4));
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ public class TestHashTable {
 			table.put("B"+i, i);
 
 //		Put another value after the rehashing
-		table.put("one", 1);	
+		table.put("one", 1);
 		assertTrue("The HashTable does not count the first object added", table.size() == 12);
 		assertTrue("The HashTable does not contain the new key added", table.containsKey("one"));
 	}

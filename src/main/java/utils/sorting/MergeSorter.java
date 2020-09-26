@@ -10,7 +10,7 @@ import java.util.List;
  * @author Sebastián García Acosta
  * @param <E>, any type.
  */
-public class MergeSorter<E> extends SortingAlgorithm<E> {
+class MergeSorter<E> extends SortingAlgorithm<E> {
 
 	/** Constructor */
 	public MergeSorter(Comparator<E> comp) {

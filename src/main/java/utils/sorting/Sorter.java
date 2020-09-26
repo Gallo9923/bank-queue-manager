@@ -11,9 +11,10 @@ import java.util.List;
  *
  */
 public class Sorter {
-
+	
 //	This class cannot be instantiated
 	private Sorter() {
+		
 	}
 
 	public static <E> void mergeSort(List<E> list, Comparator<E> comp) {
