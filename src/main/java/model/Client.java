@@ -8,7 +8,7 @@ import java.util.Comparator;
 import utils.sorting.Sorter;
 import datastructures.Stack;
 
-public class Client {
+public class Client implements Comparable<Client>{
 
 	// Priorities
 	public static final int HIGH = 1;
@@ -91,6 +91,23 @@ public class Client {
 
 	public LocalDate getRegistrationDate() {
 		return registrationDate;
+	}
+
+	@Override
+	public int compareTo(Client c2) {
+		
+		int priorityC2 = c2.getPriority();
+		int result = 0;
+		
+		if(priority - priorityC2 < 0) {
+			result = -1;
+		}else if(priority - priorityC2 > 0) {
+			result = 1;
+		}
+		
+		return result;
+		
+		
 	}
 	
 }
