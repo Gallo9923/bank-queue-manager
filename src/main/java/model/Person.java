@@ -98,7 +98,7 @@ public class Person implements Comparable<Person> {
 	/**
 	 * Clone the products of the client
 	 * 
-	 * @return
+	 * @return ArrayList<Product> cloned products
 	 */
 	private ArrayList<Product> cloneProducts() {
 		ArrayList<Product> clonedProducts = new ArrayList<Product>();
@@ -114,7 +114,7 @@ public class Person implements Comparable<Person> {
 	/**
 	 * Saves the current product status of the client
 	 * 
-	 * @return
+	 * @return boolean True if the operation was successful
 	 */
 	public boolean saveOperation() {
 		operations.push(cloneProducts());
@@ -124,7 +124,7 @@ public class Person implements Comparable<Person> {
 	/**
 	 * Undos the operation done to the client products.
 	 * 
-	 * @return
+	 * @return boolean True if the operation was successful
 	 */
 	public boolean undoOperation() {
 
@@ -166,7 +166,7 @@ public class Person implements Comparable<Person> {
 	 * Deposits an amount of money to the DebitCard Product
 	 * 
 	 * @param amount
-	 * @return
+	 * @return boolean True if the operation was successful
 	 */
 	public boolean deposit(double amount) {
 		boolean found = false;
@@ -183,6 +183,29 @@ public class Person implements Comparable<Person> {
 
 		return operationStatus;
 
+	}
+
+	/**
+	 * Pays an amount of money to the debt of a credit card
+	 * 
+	 * @param amount
+	 * @return boolean True if the operation was successful
+	 */
+	public boolean payCreditCard(double amount) {
+
+		boolean found = false;
+		boolean operationStatus = false;
+
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof CreditCard) {
+				found = true;
+				CreditCard cc = (CreditCard) products.get(i);
+				operationStatus = cc.pay(amount);
+
+			}
+		}
+
+		return operationStatus;
 	}
 
 }

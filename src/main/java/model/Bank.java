@@ -188,7 +188,7 @@ public class Bank {
 	/**
 	 * Deposits an amount of money to the current person
 	 * @param amount
-	 * @return
+	 * @return boolean True if the operation was successful
 	 */
 	public boolean deposit(double amount) {
 		
@@ -197,6 +197,24 @@ public class Bank {
 		if(currentPerson instanceof Client) {
 			Client client = (Client)currentPerson;
 			operationStatus = client.deposit(amount);
+		}
+		
+		return operationStatus;
+	}
+	
+	/**
+	 * Pays an amount of money to the debt of a credit card
+	 * 
+	 * @param amount
+	 * @return boolean True if the operation was successful
+	 */
+	public boolean payCreditCard(double amount) {
+		
+		boolean operationStatus = false;
+		
+		if(currentPerson instanceof Client) {
+			Client client = (Client)currentPerson;
+			operationStatus = client.payCreditCard(amount);
 		}
 		
 		return operationStatus;
