@@ -2,23 +2,18 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="499.0" prefWidth="742.0" styleClass="section" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UsersTable">
    <top>
-      <HBox alignment="CENTER" prefHeight="39.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="93.0" prefWidth="742.0">
          <children>
             <Label prefHeight="70.0" prefWidth="162.0" text="Users table" HBox.hgrow="ALWAYS">
                <font>
@@ -57,47 +52,9 @@
       </VBox>
    </center>
    <bottom>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="74.0" prefWidth="742.0" BorderPane.alignment="CENTER">
          <children>
-            <GridPane alignment="CENTER" prefHeight="88.0" prefWidth="618.0" HBox.hgrow="ALWAYS">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="251.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="287.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="169.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="43.0" minHeight="5.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <HBox alignment="CENTER" GridPane.columnIndex="1">
-                     <children>
-                        <JFXTextField alignment="CENTER" focusColor="#00c6ff" prefHeight="26.0" prefWidth="251.0" promptText="Name" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <JFXTextField alignment="CENTER" focusColor="#00c6ff" prefHeight="26.0" prefWidth="186.0" promptText="Id" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" GridPane.rowIndex="1">
-                     <children>
-                        <JFXDatePicker defaultColor="#00c6ff" promptText="Enrolling date" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <JFXTextField alignment="CENTER" focusColor="#00c6ff" prefHeight="26.0" prefWidth="251.0" promptText="Cash" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <children>
-                        <JFXButton onAction="#addNewUser" prefHeight="34.0" prefWidth="137.0" style="-fx-background-color: #0066b1;" text="Add new user" textFill="WHITE" />
-                     </children>
-                  </HBox>
-               </children>
-            </GridPane>
+            <JFXButton onAction="#addNewRandomUser" prefHeight="45.0" prefWidth="163.0" styleClass="contentButton" text="Add new random user" textFill="WHITE" />
          </children>
       </HBox>
    </bottom>
@@ -108,7 +65,7 @@
             <HBox alignment="CENTER" prefHeight="69.0" prefWidth="104.0" />
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="104.0">
                <children>
-                  <JFXButton onAction="#sort" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: #0066b1;" text="Apply" textFill="WHITE" />
+                  <JFXButton onAction="#sort" prefHeight="45.0" prefWidth="106.0" styleClass="contentButton" text="Apply" textFill="WHITE" />
                </children>
             </HBox>
          </children>

@@ -29,7 +29,7 @@ public class UsersTable extends AnchorPane implements Initializable {
 	}
 	
     @FXML
-    void addNewUser(ActionEvent event) {
+    void addNewRandomUser(ActionEvent event) {
     	
     }
 

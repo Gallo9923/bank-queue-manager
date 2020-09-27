@@ -7,6 +7,12 @@ import javafx.scene.layout.AnchorPane;
 
 public class QueuesStatus extends AnchorPane {
 
+    @FXML
+    private ScrollPane priorityScrollPane;
+
+    @FXML
+    private ScrollPane regularScrollPane;
+	
 	public QueuesStatus() {
 		
 	}
@@ -18,10 +24,4 @@ public class QueuesStatus extends AnchorPane {
     void generateArrival(ActionEvent event) {
 
     }
-
-    @FXML
-    void openMainMenu(ActionEvent event) {
-
-    }
-
 }

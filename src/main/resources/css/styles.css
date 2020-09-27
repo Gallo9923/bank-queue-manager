@@ -35,14 +35,25 @@
 
 #undoButton {
 	-fx-background-color:  grey;	
-	-fx-background-radius: 15 15 15 15;
-    -fx-border-radius: 15 15 15 15;
+	-fx-background-radius: 15.0 15.0 15.0 15.0;
+    -fx-border-radius: 15.0 15.0 15.0 15.0;
 }
 
 #undoButton:hover {
 	-fx-background-color:  #e00d0d;	
+	-fx-cursor: hand;
 }
 
+.contentButton {
+	-fx-background-color:  #0066b1;	
+	-fx-background-radius: 15.0 15.0 15.0 15.0;
+    -fx-border-radius: 15.0 15.0 15.0 15.0;		
+    -fx-cursor: hand;
+}
+
+.contentButton:hover {
+	-fx-background-color: gray;
+}
 
 #exitButton{
 	-fx-background-color:  transparent;
