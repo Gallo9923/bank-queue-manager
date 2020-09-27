@@ -57,9 +57,9 @@
       </VBox>
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="91.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <GridPane alignment="CENTER" prefHeight="88.0" prefWidth="677.0" HBox.hgrow="ALWAYS">
+            <GridPane alignment="CENTER" prefHeight="88.0" prefWidth="618.0" HBox.hgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="251.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="287.0" />
@@ -83,7 +83,7 @@
                   </HBox>
                   <HBox alignment="CENTER" GridPane.rowIndex="1">
                      <children>
-                        <JFXDatePicker defaultColor="#00c6ff" promptText="Enrolling date" />
+                        <JFXDatePicker defaultColor="#00c6ff" promptText="Enrolling date" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -93,7 +93,7 @@
                   </HBox>
                   <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <JFXButton prefHeight="100.0" prefWidth="224.0" style="-fx-background-color: #00c6ff;" text="Add new user" textFill="WHITE" />
+                        <JFXButton onAction="#addNewUser" prefHeight="34.0" prefWidth="137.0" style="-fx-background-color: #0066b1;" text="Add new user" textFill="WHITE" />
                      </children>
                   </HBox>
                </children>
@@ -104,14 +104,11 @@
    <right>
       <VBox alignment="CENTER" prefHeight="270.0" prefWidth="138.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="104.0">
-               <children>
-                  <JFXComboBox labelFloat="true" prefHeight="26.0" prefWidth="104.0" promptText="Sort by" style="-jfx-label-float: true;" />
-               </children>
-            </HBox>
+            <JFXComboBox fx:id="sortByComboBox" focusColor="#0066b1" labelFloat="true" prefHeight="26.0" prefWidth="104.0" promptText="Sort by" style="-jfx-label-float: true;" />
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="104.0" />
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="104.0">
                <children>
-                  <JFXButton prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: #00c6ff;" text="Apply" textFill="WHITE" />
+                  <JFXButton onAction="#sort" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: #0066b1;" text="Apply" textFill="WHITE" />
                </children>
             </HBox>
          </children>
