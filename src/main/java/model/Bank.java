@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
-
 import datastructures.HashTable;
 import datastructures.MinHeap;
 import datastructures.PriorityQueue;
@@ -86,6 +85,7 @@ public class Bank {
 
 		// Add person to the queue
 		if (p != null) {
+			p.setIsInLine(true);
 			if (p.getPriority() == 1) {
 				regular.enqueue(p);
 			} else {
@@ -238,7 +238,59 @@ public class Bank {
 	public boolean undoOperation() {
 		boolean operationStatus = false;
 		
+		if (operations.size() > 0) {
+			Client client = (Client)operations.pop();
+			client.setCancellationDate(null);
+			client.setCancellationReason(null);
+			
+			oldClients.remove(client.getIdentification());
+			clients.put(client.getIdentification(), client);
+			
+			operationStatus = true;
+		}else {
+			if(currentPerson instanceof Client) {
+				Client client = (Client)this.currentPerson;
+				operationStatus = client.undoOperation();
+			}
+		}
 		
 		return operationStatus;
 	}
+	
+	/**
+	 * Attends the next person in the priority Queue
+	 * 
+	 * @return boolean True if the operation was successful
+	 */
+	public boolean nextInPriorityQueue() {
+		boolean operationStatus = false; 
+		
+		if(priority.size() > 1 ) {
+			currentPerson.setIsInLine(false);
+			this.operations = new Stack<Person>();
+			currentPerson = priority.poll();
+			operationStatus = true;
+		}
+		
+		return operationStatus;
+	}
+	
+	/**
+	 * Attends the next person in the priority Queue
+	 * 
+	 * @return boolean True if the operation was successful
+	 */
+	public boolean nextInRegularQueue() {
+		boolean operationStatus = false; 
+		
+		if(regular.size() > 0) {
+			currentPerson.setIsInLine(false);
+			this.operations = new Stack<Person>();
+			currentPerson = regular.dequeue();
+			operationStatus = true;
+		}
+		
+		return operationStatus;
+	}
+	
 }
