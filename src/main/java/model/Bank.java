@@ -1,6 +1,8 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -9,6 +11,7 @@ import datastructures.MinHeap;
 import datastructures.PriorityQueue;
 import datastructures.Queue;
 import datastructures.Stack;
+import utils.sorting.Sorter;
 
 public class Bank {
 
@@ -21,6 +24,7 @@ public class Bank {
 	private HashSet<Integer> allClients;
 	private Stack<Person> operations;
 	private Person currentPerson;
+	private int accountNumberCounter;
 
 	/**
 	 * Creates an instance of a Bank
@@ -38,8 +42,83 @@ public class Bank {
 		regular = new Queue<Person>();
 		operations = new Stack<Person>();
 		currentPerson = null;
+		accountNumberCounter = 0;
 	}
 
+	public ArrayList<Client> getClients(){
+		
+		ArrayList<Client> cl = new ArrayList<Client>(this.clients.size());
+		
+		Iterator<Integer> iter = allClients.iterator();
+		
+		while(iter.hasNext()) {
+			cl.add(clients.get(iter.next()));
+		}
+		
+		return cl;
+		
+	}
+	
+	public ArrayList<Client> sortByClientName() {
+		
+		ArrayList<Client> cl = getClients();
+		
+		Sorter.mergeSort(cl, new Comparator<Client>() {
+			@Override
+			public int compare(Client c1, Client c2) {
+				return c1.getName().compareTo(c2.getName());
+			}
+			
+		});
+		
+		return cl;
+	}
+	
+	public ArrayList<Client> sortByClientIdentification() {
+		
+		ArrayList<Client> cl = getClients();
+		
+		Sorter.mergeSort(cl, new Comparator<Client>() {
+			@Override
+			public int compare(Client c1, Client c2) {
+				int id1 = c1.getIdentification();
+				int id2 = c2.getIdentification();
+				int result = 0;
+				
+				if(id1 - id2 < 0) {
+					result = -1;
+				}else if(id1 - id2 > 0) {
+					result = 1;
+				}
+				
+				return result;
+			}
+			
+		});
+		
+		return cl;
+	}
+	
+	public ArrayList<Client> sortByTimeSinceRegistration() {
+		
+		ArrayList<Client> cl = getClients();
+		Sorter.insertionSort(cl, (c1, c2) -> {
+			return c1.getRegistrationDate().compareTo(c2.getRegistrationDate());
+		} ); 
+		
+		return cl;
+	}
+	
+	public ArrayList<Client> sortByMoney(){
+		
+		ArrayList<Client> cl = getClients();
+		Sorter.heapSort(cl, (c1, c2) -> {
+			return Double.compare(c1.getMoney(), c2.getMoney());
+		});
+		
+		return cl;
+	}
+	
 	/**
 	 * Cancels the account of a client
 	 * 
@@ -157,8 +236,8 @@ public class Bank {
 			identification = r.nextInt();
 		}
 
-		Client client = new Client(identification, "Chris", generateRandomPriority());
-
+		Client client = new Client(accountNumberCounter, identification, "Chris", generateRandomPriority());
+		accountNumberCounter++;
 		// Generate Random Products
 
 		CreditCard cc = new CreditCard(identification, 15,  r.nextDouble());

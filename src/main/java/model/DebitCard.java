@@ -38,4 +38,7 @@ public class DebitCard extends Product{
 		return new DebitCard(this.getId(), this.cash);
 	}
  
+	public double getCash() {
+		return this.cash;
+	}
 }

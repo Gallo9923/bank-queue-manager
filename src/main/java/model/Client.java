@@ -3,7 +3,6 @@ package model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.time.temporal.ChronoUnit;
 import datastructures.Stack;
 
 public class Client extends Person {
@@ -13,9 +12,11 @@ public class Client extends Person {
 	private LocalDate cancellationDate;
 	private Stack<ArrayList<Product>> operations;
 	private ArrayList<Product> products;
+	private int accountNumber;
 	
-	public Client(int identification, String name, int priority) {
+	public Client(int accountNumber, int identification, String name, int priority) {
 		super(identification, name, priority);
+		this.accountNumber = accountNumber;
 		this.registrationDate = LocalDate.now();
 		this.cancellationReason = null;
 		this.cancellationDate = null;
@@ -193,5 +194,22 @@ public class Client extends Person {
 		return operations;
 	}
 	
+	public double getMoney() {
+		
+		boolean found = false;
+		double result = 0;
+		for(int i=0; i<products.size() && !found; i++) {
+			if(products.get(i) != null && products.get(i) instanceof DebitCard) {
+				DebitCard dc = (DebitCard)products.get(i);
+				result = dc.getCash();
+			}
+		}
+		
+		return result;
+	}
+	
+	public int getAccountNumber() {
+		return accountNumber;
+	}
 	
 }
