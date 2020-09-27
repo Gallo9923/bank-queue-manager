@@ -9,17 +9,19 @@ import datastructures.HashTable;
 import datastructures.MinHeap;
 import datastructures.PriorityQueue;
 import datastructures.Queue;
+import datastructures.Stack;
 
 public class Bank {
 
 	private String name;
-	private int productsCounter;
 	private Queue<Person> regular;
 	private PriorityQueue<Person> priority;
 	private HashTable<Integer, Client> oldClients;
 	private HashTable<Integer, Client> clients;
 	private HashSet<Integer> clientsInBank;
 	private HashSet<Integer> allClients;
+	private Stack<Person> operations;
+	private Person currentPerson;
 
 	/**
 	 * Creates an instance of a Bank
@@ -28,25 +30,34 @@ public class Bank {
 	 */
 	public Bank(String name) {
 		this.name = name;
-		productsCounter = 0;
 		clientsInBank = new HashSet<Integer>();
 		allClients = new HashSet<Integer>();
-		
-		//TODO add queues and clients
+
 		clients = new HashTable<Integer, Client>();
 		oldClients = new HashTable<Integer, Client>();
 		priority = new MinHeap<Person>(100);
 		regular = new Queue<Person>();
+		operations = new Stack<Person>();
+		currentPerson = null;
 	}
 
+	/**
+	 * Cancels the account of a client
+	 * 
+	 * @param identification
+	 * @return
+	 */
 	public boolean cancelAccount(int identification) {
-		
+
 		Client client = clients.get(identification);
+		operations.push(client);
+
 		clients.remove(identification);
-		
-		return false; // TODO
+		oldClients.put(identification, client);
+
+		return true;
 	}
-	
+
 	/**
 	 * Generates a random arrival of a person or client to the bank
 	 * 
@@ -63,12 +74,12 @@ public class Bank {
 			p = getRandomClient();
 
 		} else {
-			p = getRandomPerson();
+			p = createRandomPerson();
 		}
 
 		// If all clients are inside the bank
 		if (p == null) {
-			p = getRandomPerson();
+			p = createRandomPerson();
 		}
 
 		// Add person to the queue
@@ -81,6 +92,8 @@ public class Bank {
 			operationStatus = true;
 		}
 
+		operations = new Stack<Person>();
+
 		return operationStatus;
 	}
 
@@ -89,9 +102,9 @@ public class Bank {
 	 * 
 	 * @return Person
 	 */
-	private Person getRandomPerson() {
+	private Person createRandomPerson() {
 		Random r = new Random();
-		return new Person(r.nextInt(), "Carlos", r.nextInt(4) + 1);
+		return new Person(r.nextInt(), "Carlos", generateRandomPriority());
 
 	}
 
@@ -123,6 +136,72 @@ public class Bank {
 
 	}
 
+	public int generateRandomPriority() {
+		Random r = new Random();
+		return r.nextInt(4) + 1;
+	}
+
+	/**
+	 * Creates a random Client with random products
+	 * 
+	 * @return Client
+	 */
+	public Client createRandomClient() {
+
+		// Generate Random ID
+		Random r = new Random();
+		int identification = r.nextInt();
+		while (clients.containsKey(identification)) {
+			identification = r.nextInt();
+		}
+
+		Client client = new Client(identification, "Chris", generateRandomPriority());
+
+		// Generate Random Products
+
+		CreditCard cd = new CreditCard(identification, r.nextDouble());
+		DebitCard dc = new DebitCard(identification, r.nextDouble());
+		
+		client.addProduct(cd);
+		client.addProduct(dc);
+
+		return client;
+	}
+	
+	/**
+	 * Withdraws an amount of money from the DebitCard product
+	 * 
+	 * @param amount
+	 * @return boolean True if the operation was successful
+	 */
+	public boolean withdraw(double amount) {
+		boolean operationStatus = false;
+		
+		if(currentPerson instanceof Client) {
+			Client client = (Client)currentPerson;
+			operationStatus = client.withdraw(amount);
+		}
+		
+		return operationStatus;
+	}
+	
+	/**
+	 * Deposits an amount of money to the current person
+	 * @param amount
+	 * @return
+	 */
+	public boolean deposit(double amount) {
+		
+		boolean operationStatus = false;
+		
+		if(currentPerson instanceof Client) {
+			Client client = (Client)currentPerson;
+			operationStatus = client.deposit(amount);
+		}
+		
+		return operationStatus;
+	}
+	
 	/**
 	 * Returns the name of the bank
 	 * 

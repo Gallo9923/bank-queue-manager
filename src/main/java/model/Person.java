@@ -27,6 +27,10 @@ public class Person implements Comparable<Person> {
 		this.inLine = false;
 	}
 
+	public boolean addProduct(Product product) {
+		return products.add(product);
+	}
+
 	public boolean clearOperations() {
 		this.operations = new Stack<ArrayList<Product>>();
 		return true;
@@ -109,6 +113,7 @@ public class Person implements Comparable<Person> {
 
 	/**
 	 * Saves the current product status of the client
+	 * 
 	 * @return
 	 */
 	public boolean saveOperation() {
@@ -118,6 +123,7 @@ public class Person implements Comparable<Person> {
 
 	/**
 	 * Undos the operation done to the client products.
+	 * 
 	 * @return
 	 */
 	public boolean undoOperation() {
@@ -132,4 +138,51 @@ public class Person implements Comparable<Person> {
 		return operationStatus;
 
 	}
+
+	/**
+	 * Withdraws an amount of money from the DebitCard product
+	 * 
+	 * @param amount
+	 * @return boolean True if the operation was successful
+	 */
+	public boolean withdraw(double amount) {
+
+		boolean found = false;
+		boolean operationStatus = false;
+
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof DebitCard) {
+				found = true;
+				DebitCard dc = (DebitCard) products.get(i);
+				operationStatus = dc.withdraw(amount);
+
+			}
+		}
+
+		return operationStatus;
+	}
+
+	/**
+	 * Deposits an amount of money to the DebitCard Product
+	 * 
+	 * @param amount
+	 * @return
+	 */
+	public boolean deposit(double amount) {
+		boolean found = false;
+		boolean operationStatus = false;
+
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof DebitCard) {
+				found = true;
+				DebitCard dc = (DebitCard) products.get(i);
+				operationStatus = dc.deposit(amount);
+
+			}
+		}
+
+		return operationStatus;
+
+	}
+
 }

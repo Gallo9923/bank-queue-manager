@@ -14,7 +14,7 @@ public class DebitCard extends Product{
 		this.cash = 0;
 	}
 	
-	public boolean withdrawal(double amount) {
+	public boolean withdraw(double amount) {
 		
 		boolean operationStatus = false;
 		
