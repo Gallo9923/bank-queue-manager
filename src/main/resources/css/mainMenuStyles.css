@@ -1,0 +1,25 @@
+#mainMenu{
+	-fx-background-radius:  2.0em;
+
+/*  -fx-background-color:  linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); */
+   -fx-background-color: linear-gradient(to left, #0B486B, #0a2e42); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#backgroundAnchorPane {
+	-fx-background-color: transparent;
+/* -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 ); */
+}
+
+.operationButton {
+	-fx-background-color:  transparent;
+}
+
+.nextButton {
+	-fx-background-color:  #ffffff;
+}
+
+#exitButton {
+	-fx-background-color:  #e00d0d;
+	-fx-background-radius: 15.0 15.0 0.0 0.0;
+    -fx-border-radius: 15.0 15.0 0.0 0.0;		
+}
