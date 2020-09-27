@@ -14,17 +14,20 @@ public abstract class Product implements Comparable<Product>, Cloneable {
 
 	@Override
 	public int compareTo(Product p2) {
-		
+
 		int id2 = p2.getId();
 		int result = 0;
-		
+
 		if (id - id2 < 0) {
 			result = -1;
 		} else if (id - id2 > 0) {
 			result = 1;
 		}
-		
+
 		return result;
 	}
 
+	public Product cloneProduct() {
+		return null;
+	}
 }

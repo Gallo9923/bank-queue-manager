@@ -4,55 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import utils.sorting.Sorter;
-import datastructures.Stack;
 
-public class Client implements Comparable<Client> {
+public class Client extends Person {
 
-	// Priorities
-	public static final int HIGH = 1;
-	public static final int MEDIUM = 2;
-	public static final int LOW = 3;
-	public static final int NONE = 4;
-
-	private ArrayList<Product> products;
-
-	private String name;
-	private String identification;
-	private int priority;
 	private LocalDate registrationDate;
-	private Stack<ArrayList<Product>> operations;
-	private boolean inLine;
 
-	public Client(String name, String identification, int priority) {
-
-		this.name = name;
-		this.identification = identification;
-		this.priority = priority;
+	public Client(int identification, String name, int priority) {
+		super(identification, name, priority);
 		this.registrationDate = LocalDate.now();
-		this.products = new ArrayList<Product>();
-		this.operations = new Stack<ArrayList<Product>>();
-		this.inLine = false;
-
-	}
-
-	public boolean undoOperation() {
-
-		boolean operationStatus = false;
-
-		if (!operations.isEmpty()) {
-			products = operations.pop();
-			operationStatus = true;
-		}
-
-		return operationStatus;
 
 	}
 
 	@SuppressWarnings("unchecked")
 	public boolean cancelProduct(int productId) {
 
+		ArrayList<Product> products = this.getProducts();
 		boolean operationStatus = false;
 
 		Comparator<Product> comp = new Comparator<Product>() {
@@ -62,11 +29,11 @@ public class Client implements Comparable<Client> {
 			}
 		};
 
-		Sorter.mergeSort(products, comp);
-		int index = Collections.binarySearch(products, new CreditCard(productId));
+		Sorter.mergeSort(this.getProducts(), comp);
+		int index = Collections.binarySearch(this.getProducts(), new CreditCard(productId));
 
 		if (index >= 0) {
-			operations.push((ArrayList<Product>) products.clone());
+			this.getOperations().push((ArrayList<Product>) products.clone());
 
 			products.remove(index);
 			operationStatus = true;
@@ -75,43 +42,10 @@ public class Client implements Comparable<Client> {
 		return operationStatus;
 	}
 
-	public ArrayList<Product> getProducts() {
-		return products;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getIdentification() {
-		return identification;
-	}
-
-	public int getPriority() {
-		return priority;
-	}
-
 	public LocalDate getRegistrationDate() {
 		return registrationDate;
 	}
-
-	public boolean isInLine() {
-		return inLine;
-	}
 	
-	@Override
-	public int compareTo(Client c2) {
-
-		int priorityC2 = c2.getPriority();
-		int result = 0;
-
-		if (priority - priorityC2 < 0) {
-			result = -1;
-		} else if (priority - priorityC2 > 0) {
-			result = 1;
-		}
-
-		return result;
-	}
-
+	
+	
 }

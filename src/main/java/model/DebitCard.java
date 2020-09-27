@@ -33,4 +33,9 @@ public class DebitCard extends Product{
 		
 	}
 	
+	@Override
+	public DebitCard cloneProduct() {
+		return new DebitCard(this.getId(), this.cash);
+	}
+ 
 }
