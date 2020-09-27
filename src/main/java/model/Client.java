@@ -1,8 +1,9 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
-
+import java.time.temporal.ChronoUnit;
 import datastructures.Stack;
 
 public class Client extends Person {
@@ -136,6 +137,19 @@ public class Client extends Person {
 		}
 
 		return operationStatus;
+	}
+	
+	/**
+	 * Returns the amount of time since registration
+	 * 
+	 * @return String
+	 */
+	public String timeSinceRegistration() {
+		
+		Period period = Period.between(this.registrationDate, LocalDate.now());
+	
+		return "Years: "+ period.getYears() + " Months: " + period.getMonths() + " Days: " + period.getDays();
+		
 	}
 
 	public LocalDate getRegistrationDate() {

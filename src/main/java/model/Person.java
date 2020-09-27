@@ -19,7 +19,6 @@ public class Person implements Comparable<Person> {
 		this.name = name;
 		this.identification = identification;
 		this.priority = priority;
-		
 		this.inLine = false;
 		
 	}

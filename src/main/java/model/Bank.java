@@ -284,7 +284,7 @@ public class Bank {
 		boolean operationStatus = false; 
 		
 		if(regular.size() > 0) {
-			currentPerson.setIsInLine(false);
+			
 			this.operations = new Stack<Person>();
 			currentPerson = regular.dequeue();
 			operationStatus = true;
