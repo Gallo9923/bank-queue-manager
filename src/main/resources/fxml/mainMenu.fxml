@@ -14,22 +14,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="674.0" prefWidth="992.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenu">
+<AnchorPane prefHeight="674.0" prefWidth="992.0" style="-fx-background-color: transparent;" styleClass="background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenu">
 	<children>
-		<AnchorPane fx:id="backgroundAnchorPane" layoutX="-41.0" layoutY="-7.0" prefHeight="711.0" prefWidth="1013.0" stylesheets="@../css/mainMenuStyles.css" AnchorPane.bottomAnchor="-30.0" AnchorPane.leftAnchor="-41.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="-7.0">
+		<AnchorPane layoutX="-45.0" layoutY="-7.0" prefHeight="711.0" prefWidth="1017.0" styleClass="background" AnchorPane.bottomAnchor="-30.0" AnchorPane.leftAnchor="-45.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="-7.0">
 			<children>
-            <StackPane fx:id="parentContainer" layoutX="360.0" layoutY="23.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+            <StackPane fx:id="parentContainer" layoutX="360.0" layoutY="23.0" styleClass="background" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
                <children>
-      				<AnchorPane fx:id="currentSection" style="-fx-background-color: white; -fx-background-radius: 1em;" StackPane.alignment="CENTER">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-      				</AnchorPane>
+      				<AnchorPane fx:id="currentSection" styleClass="background" StackPane.alignment="CENTER" />
                </children>
             </StackPane>
-				<AnchorPane layoutX="46.0" layoutY="11.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="626.0" prefWidth="326.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="11.0">
+				<AnchorPane layoutX="39.0" layoutY="8.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="674.0" prefWidth="333.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="8.0">
 					<children>
-						<VBox fx:id="mainMenu" alignment="TOP_CENTER" layoutX="76.0" layoutY="84.0" prefHeight="506.0" prefWidth="328.0" stylesheets="@../css/mainMenuStyles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<VBox fx:id="mainMenu" alignment="TOP_CENTER" layoutX="76.0" layoutY="84.0" prefHeight="663.0" prefWidth="328.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
 								<Label textFill="WHITE">
 									<font>
@@ -138,9 +134,9 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="39.0" prefWidth="328.0">
+                              <HBox alignment="CENTER" prefHeight="66.0" prefWidth="326.0">
                                  <children>
-                                    <JFXButton fx:id="visualizeUserTable" buttonType="RAISED" contentDisplay="RIGHT" onAction="#switch2UsersTable" prefHeight="40.0" prefWidth="373.0" styleClass="operationButton" text="Visualize users table" textAlignment="CENTER" textFill="WHITE">
+                                    <JFXButton fx:id="visualizeUserTable" buttonType="RAISED" contentDisplay="RIGHT" onAction="#switch2UsersTable" prefHeight="50.0" prefWidth="326.0" styleClass="operationButton" text="Visualize users table" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -150,9 +146,9 @@
                                     </JFXButton>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="39.0" prefWidth="328.0">
+                              <HBox alignment="CENTER" prefHeight="59.0" prefWidth="326.0">
                                  <children>
-                                    <JFXButton fx:id="visualizeQueueStatus" buttonType="RAISED" contentDisplay="RIGHT" onAction="#switch2QueuesStatus" prefHeight="26.0" prefWidth="376.0" styleClass="operationButton" text="Visualize queues status" textFill="WHITE">
+                                    <JFXButton fx:id="visualizeQueueStatus" buttonType="RAISED" contentDisplay="RIGHT" onAction="#switch2QueuesStatus" prefHeight="50.0" prefWidth="376.0" styleClass="operationButton" text="Visualize queues status" textFill="WHITE">
                                        <font>
                                           <Font size="19.0" />
                                        </font>
@@ -162,9 +158,9 @@
                                     </JFXButton>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="39.0">
+                              <HBox alignment="CENTER" prefHeight="62.0" prefWidth="326.0">
                                  <children>
-                                    <JFXButton fx:id="userOperations" buttonType="RAISED" contentDisplay="RIGHT" onAction="#switch2UserOperations" prefHeight="26.0" prefWidth="373.0" styleClass="operationButton" text="User operations" textFill="WHITE">
+                                    <JFXButton fx:id="userOperations" buttonType="RAISED" contentDisplay="RIGHT" onAction="#switch2UserOperations" prefHeight="50.0" prefWidth="373.0" styleClass="operationButton" text="User operations" textFill="WHITE">
                                        <font>
                                           <Font size="19.0" />
                                        </font>

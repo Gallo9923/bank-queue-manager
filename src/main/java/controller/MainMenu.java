@@ -29,9 +29,6 @@ import javafx.util.Duration;
 public class MainMenu implements Initializable {
 
 	@FXML
-	private AnchorPane backgroundAnchorPane;
-
-	@FXML
 	private StackPane parentContainer;
 
 	@FXML
@@ -73,15 +70,13 @@ public class MainMenu implements Initializable {
 		try {
 			this.usersTableScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/usersTable.fxml"));
 
-			this.usersOperationScene = (Pane) FXMLLoader
-					.load(getClass().getResource("/fxml/userOperations.fxml"));
+			this.usersOperationScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/userOperations.fxml"));
 
 			this.queuesStatusScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/queuesStatus.fxml"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		this.currentScene = usersTableScene;
 	}
 
@@ -110,20 +105,23 @@ public class MainMenu implements Initializable {
 
 		if (!children.contains(root) && currentScene != root) {
 			Scene scene = btn.getScene();
-			
-			slide(currentScene, 0, -(scene.getWidth()) + 100, 0.25, e1-> { // Slides the current scene from right to left
+
+			slide(currentScene, 0, -(scene.getWidth()) + 200, 0.25, e1 -> { // Slides the current scene from right to
+																			// left
 				children.add(root);
 				double xPropertyValue = -scene.getWidth(); // From left to right
-				slide(root, xPropertyValue, 0, 0.25, e -> children.remove(1)); // Slides the next scene from left to right		
+				slide(root, xPropertyValue, 0, 0.25, e -> children.remove(1)); // Slides the next scene from left to
+																				// right
 			});
-			
+
 			currentScene = root;
 		}
 	}
-	
-	private void slide(Pane root, double xPropertyValue, double endValue, double durationSecs, EventHandler<ActionEvent> e) {
+
+	private void slide(Pane root, double xPropertyValue, double endValue, double durationSecs,
+			EventHandler<ActionEvent> e) {
 		root.translateXProperty().set(xPropertyValue);
-		
+
 		Timeline timeline = new Timeline();
 		KeyValue kv1 = new KeyValue(root.translateXProperty(), endValue, Interpolator.EASE_IN);
 		KeyFrame kf2 = new KeyFrame(Duration.seconds(durationSecs), kv1);

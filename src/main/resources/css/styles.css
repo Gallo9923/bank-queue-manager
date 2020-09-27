@@ -5,13 +5,23 @@
    -fx-background-color: linear-gradient(to left, #0B486B, #0a2e42); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#backgroundAnchorPane {
-	-fx-background-color: transparent;
-/* -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 ); */
+.section {
+	-fx-background-color: white;
+	-fx-background-radius: 10.0 10.0 10.0 10.0;
+    -fx-border-radius: 10.0 10.0 10.0 10.0;
+}
+
+.background{
+	-fx-background-color:  transparent;		
+	-fx-background-radius: 1em;
 }
 
 .operationButton {
 	-fx-background-color:  transparent;
+}
+
+.operationButton:hover {
+	-fx-background-color:  gray;
 }
 
 .nextButton {
