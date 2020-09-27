@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import datastructures.HashTable;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,9 +25,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainMenu implements Initializable {
+
+	@FXML
+	private AnchorPane backgroundAnchorPane;
 
 	@FXML
 	private StackPane parentContainer;
@@ -65,6 +70,7 @@ public class MainMenu implements Initializable {
 	private Pane usersOperationScene;
 	private Pane queuesStatusScene;
 	private Pane currentScene;
+	private HashTable<Pane, Button> scene2Button;
 
 	public MainMenu() {
 		try {
@@ -77,12 +83,19 @@ public class MainMenu implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		this.currentScene = usersTableScene;
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		scene2Button = new HashTable<>(4, 1);
+		scene2Button.put(usersTableScene, visualizeUserTable);
+		scene2Button.put(usersOperationScene, userOperations);
+		scene2Button.put(queuesStatusScene, visualizeQueueStatus);
+
 		this.parentContainer.getChildren().add(currentScene);
+		scene2Button.get(currentScene).setStyle("-fx-background-color:grey;");
 	}
 
 	@FXML
@@ -105,13 +118,14 @@ public class MainMenu implements Initializable {
 
 		if (!children.contains(root) && currentScene != root) {
 			Scene scene = btn.getScene();
-
+			scene2Button.get(currentScene).setStyle("-fx-background-color:transparent;");
 			slide(currentScene, 0, -(scene.getWidth()) + 200, 0.25, e1 -> { // Slides the current scene from right to
 																			// left
 				children.add(root);
 				double xPropertyValue = -scene.getWidth(); // From left to right
-				slide(root, xPropertyValue, 0, 0.25, e -> children.remove(1)); // Slides the next scene from left to
-																				// right
+				// Slides the next scene from left to right
+				slide(root, xPropertyValue, 0, 0.25, e2 -> children.remove(1));
+				scene2Button.get(root).setStyle("-fx-background-color:grey;");
 			});
 
 			currentScene = root;
@@ -128,6 +142,22 @@ public class MainMenu implements Initializable {
 		timeline.getKeyFrames().add(kf2);
 		timeline.setOnFinished(e);
 		timeline.play();
+	}
+
+	@FXML
+	void maximizeWindow(ActionEvent event) {
+		Stage stage = (Stage) backgroundAnchorPane.getScene().getWindow();
+		if (stage.isFullScreen())
+			stage.setFullScreen(false);
+		else
+			stage.setFullScreen(true);
+
+	}
+
+	@FXML
+	void minimizeWindow(ActionEvent event) {
+		Stage stage = (Stage) backgroundAnchorPane.getScene().getWindow();
+		stage.setIconified(true);
 	}
 
 	@FXML

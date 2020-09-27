@@ -1,8 +1,9 @@
 #mainMenu{
 	-fx-background-radius:  2.0em;
 
-/*  -fx-background-color:  linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); */
-   -fx-background-color: linear-gradient(to left, #0B486B, #0a2e42); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* -fx-background-color:  linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); */
+ /* -fx-background-color: linear-gradient(to bottom right, #0B486B, #0066b1); */
+ -fx-background-color: linear-gradient(to right top, #0B486B,#0066b1, #00c6ff);
 }
 
 .section {
@@ -11,9 +12,13 @@
     -fx-border-radius: 10.0 10.0 10.0 10.0;
 }
 
+.table-view{
+   -fx-background-color: transparent;
+}
+
 .background{
 	-fx-background-color:  transparent;		
-	-fx-background-radius: 1em;
+	-fx-background-radius: 1.0em;
 }
 
 .operationButton {
@@ -25,11 +30,17 @@
 }
 
 .nextButton {
-	-fx-background-color:  #ffffff;
+	-fx-background-color: grey;
 }
 
-#exitButton {
+#exitButton{
+	-fx-background-color:  transparent;
+	-fx-background-radius: 0 25;
+    -fx-border-radius:     0 25;		
+}
+
+#exitButton:hover {
 	-fx-background-color:  #e00d0d;
-	-fx-background-radius: 15.0 15.0 0.0 0.0;
-    -fx-border-radius: 15.0 15.0 0.0 0.0;		
+	-fx-background-radius: 0 25;
+    -fx-border-radius:     0 25;		
 }

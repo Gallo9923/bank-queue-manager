@@ -22,6 +22,7 @@ public class Main extends Application {
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setFullScreen(true);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Great Bank Manager");
 			primaryStage.show();
 			scene.setFill(Color.TRANSPARENT);
 			root.setOnMousePressed(new EventHandler<MouseEvent>() {

@@ -13,18 +13,7 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#openMainMenu" text="Back" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="15.0" top="15.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="459.0">
                <children>
                   <Label prefHeight="70.0" prefWidth="357.0" text="Visualize queue status" HBox.hgrow="ALWAYS">
