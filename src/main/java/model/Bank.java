@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -47,9 +47,11 @@ public class Bank {
 	 * @param identification
 	 * @return
 	 */
-	public boolean cancelAccount(int identification) {
+	public boolean cancelAccount(int identification, String cancellationReason, LocalDate date) {
 
 		Client client = clients.get(identification);
+		client.setCancellationReason(cancellationReason);
+		client.setCancellationDate(LocalDate.now());
 		operations.push(client);
 
 		clients.remove(identification);
@@ -159,10 +161,10 @@ public class Bank {
 
 		// Generate Random Products
 
-		CreditCard cd = new CreditCard(identification, r.nextDouble());
+		CreditCard cc = new CreditCard(identification, 15,  r.nextDouble());
 		DebitCard dc = new DebitCard(identification, r.nextDouble());
 		
-		client.addProduct(cd);
+		client.addProduct(cc);
 		client.addProduct(dc);
 
 		return client;
@@ -229,4 +231,14 @@ public class Bank {
 		return this.name;
 	}
 
+	/**
+	 * Undoes the latest operation done to the client
+	 * @return
+	 */
+	public boolean undoOperation() {
+		boolean operationStatus = false;
+		
+		
+		return operationStatus;
+	}
 }

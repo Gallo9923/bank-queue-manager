@@ -17,6 +17,7 @@ public class Person implements Comparable<Person> {
 	private Stack<ArrayList<Product>> operations;
 	private ArrayList<Product> products;
 	private boolean inLine;
+	
 
 	public Person(int identification, String name, int priority) {
 		this.name = name;
@@ -25,6 +26,7 @@ public class Person implements Comparable<Person> {
 		this.operations = new Stack<ArrayList<Product>>();
 		this.products = new ArrayList<Product>();
 		this.inLine = false;
+		
 	}
 
 	public boolean addProduct(Product product) {
