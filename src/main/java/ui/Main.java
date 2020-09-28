@@ -17,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			root = FXMLLoader.load(getClass().getResource("/fxml/mainMenu.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setFullScreen(true);

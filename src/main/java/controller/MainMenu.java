@@ -74,11 +74,11 @@ public class MainMenu implements Initializable {
 
 	public MainMenu() {
 		try {
-			this.usersTableScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/usersTable.fxml"));
+			this.usersTableScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/UsersTable.fxml"));
 
-			this.usersOperationScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/userOperations.fxml"));
+			this.usersOperationScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/UserOperations.fxml"));
 
-			this.queuesStatusScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/queuesStatus.fxml"));
+			this.queuesStatusScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/QueuesStatus.fxml"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
