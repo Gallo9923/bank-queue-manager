@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.NumberValidator;
 
@@ -39,7 +40,7 @@ public class UserOperations extends AnchorPane implements Initializable {
 	private JFXButton cardPaymentBtn;
 
 	@FXML
-	private Label confirmationLabel;
+	private JFXTextArea description;
 
 	@FXML
 	private JFXTextField operationTextField;
@@ -169,18 +170,18 @@ public class UserOperations extends AnchorPane implements Initializable {
 
 		if (currentOperation == Operation.ACCOUNT_CANCELATION) {
 			operationTextField.setVisible(false);
-			confirmationLabel.setVisible(true);
+			description.setVisible(true);
 			submitBtn.setDisable(false);
 		} else {
 			operationTextField.setVisible(false);
-			confirmationLabel.setVisible(false);
+			description.setVisible(false);
 			submitBtn.setDisable(true);
 		}
 	}
 
 	private void enableTextField(String promptText) {
 		operationTextField.setVisible(true);
-		confirmationLabel.setVisible(false);
+		description.setVisible(false);
 		operationTextField.setPromptText(promptText);
 		operationTextField.setText("");
 	}
