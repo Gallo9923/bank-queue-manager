@@ -3,9 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
-
 import datastructures.HashTable;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -101,6 +99,7 @@ public class MainMenu implements Initializable {
 	@FXML
 	void switch2QueuesStatus(ActionEvent event) {
 		switch2(visualizeQueueStatus, queuesStatusScene);
+		QueuesStatus.getInstance().updateQueues();
 	}
 
 	@FXML
@@ -171,6 +170,7 @@ public class MainMenu implements Initializable {
 		if (result) {
 			switch2UserOperations(null);
 			updateQueueStatus();
+			updatePersonInformation();
 		}
     }
 
@@ -180,6 +180,7 @@ public class MainMenu implements Initializable {
     	if(result) {
     		switch2UserOperations(null);
     		updateQueueStatus();
+    		updatePersonInformation();
     	}
     	
     }
@@ -187,6 +188,12 @@ public class MainMenu implements Initializable {
 	
 	public static MainMenu getInstance() {
 		return mMenu;
+	}
+	
+	public void updatePersonInformation() {
+
+		UserOperations.getInstance().updatePersonInformation();
+		
 	}
 	
 	public void updateQueueStatus() {

@@ -15,7 +15,7 @@ import ui.Main;
 public class QueuesStatus extends AnchorPane {
 
 	private Bank bank;
-
+	public static QueuesStatus qs;
 	@FXML
 	private ScrollPane rScrollPane;
 
@@ -27,6 +27,7 @@ public class QueuesStatus extends AnchorPane {
 
 	public QueuesStatus() {
 		bank = Main.bank;
+		qs = this;
 	}
 
 	@FXML
@@ -41,17 +42,23 @@ public class QueuesStatus extends AnchorPane {
 
 	private void updateQueueStatus() {
 		MainMenu.getInstance().updateQueueStatus();
-		;
+		
 	}
 
-	private void updateQueues() {
+	protected void updateQueues() {
 		updateRegularQueue();
 		updatePriorityQueue();
 	}
 
 	private void updatePriorityQueue() {
 		priorityScrollPane.getChildren().clear();
-		priorityScrollPane.getChildren().add(getPersonLabel(bank.peekPriorityQueue()));
+		Person p = bank.peekPriorityQueue();
+		
+		if(p != null) {
+			priorityScrollPane.getChildren().add(getPersonLabel(p));
+		}
+		
+		
 		
 	}
 	
@@ -72,4 +79,8 @@ public class QueuesStatus extends AnchorPane {
 		return label;
 	}
 
+	public static QueuesStatus getInstance() {
+		return qs;
+	}
+	
 }

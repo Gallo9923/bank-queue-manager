@@ -399,6 +399,17 @@ public class Bank {
 	}
 	
 	public Person peekPriorityQueue() {
-		return priority.peek();
+		
+		if(priority.size() > 0) {
+			return priority.peek();
+		}else {
+			return null;
+		}
+		
+		
+	}
+	
+	public Person getCurrentPerson() {
+		return this.currentPerson;
 	}
 }

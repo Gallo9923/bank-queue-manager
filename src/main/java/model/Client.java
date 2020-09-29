@@ -204,6 +204,32 @@ public class Client extends Person {
 		return result;
 	}
 
+	public double getDebt() {
+		boolean found = false;
+		double result = 0;
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof CreditCard) {
+				CreditCard cc = (CreditCard) products.get(i);
+				result = cc.getDebt();
+			}
+		}
+
+		return result;
+	}
+
+	public int getPaymentDate() {
+		boolean found = false;
+		int result = 0;
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof CreditCard) {
+				CreditCard cc = (CreditCard) products.get(i);
+				result = cc.getDayOfPayment();
+			}
+		}
+
+		return result;
+	}
+
 	public int getAccountNumber() {
 		return accountNumber;
 	}

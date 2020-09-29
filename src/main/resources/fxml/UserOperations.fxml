@@ -50,22 +50,22 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="200.0" prefWidth="116.0">
                                  <children>
-                                    <JFXButton buttonType="RAISED" onAction="#withdrawal" prefHeight="45.0" prefWidth="117.0" styleClass="contentButton" text="Withdrawal" textFill="WHITE" />
+                                    <JFXButton fx:id="withdrawalBtn" buttonType="RAISED" onAction="#withdrawal" prefHeight="45.0" prefWidth="117.0" styleClass="contentButton" text="Withdrawal" textFill="WHITE" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" GridPane.columnIndex="1">
                                  <children>
-                                    <JFXButton buttonType="RAISED" onAction="#deposit" prefHeight="45.0" prefWidth="103.0" styleClass="contentButton" text="Deposit" textFill="WHITE" />
+                                    <JFXButton fx:id="depositBtn" buttonType="RAISED" onAction="#deposit" prefHeight="45.0" prefWidth="103.0" styleClass="contentButton" text="Deposit" textFill="WHITE" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" GridPane.columnIndex="2">
                                  <children>
-                                    <JFXButton buttonType="RAISED" onAction="#accountCancelation" prefHeight="45.0" styleClass="contentButton" text="Account cancelation" textFill="WHITE" />
+                                    <JFXButton fx:id="accountCancelationBtn" buttonType="RAISED" onAction="#accountCancelation" prefHeight="45.0" styleClass="contentButton" text="Account cancelation" textFill="WHITE" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" GridPane.columnIndex="3">
                                  <children>
-                                    <JFXButton buttonType="RAISED" onAction="#cardPayment" prefHeight="45.0" prefWidth="118.0" styleClass="contentButton" text="Card payment" textFill="WHITE" />
+                                    <JFXButton fx:id="cardPaymentBtn" buttonType="RAISED" onAction="#cardPayment" prefHeight="45.0" prefWidth="118.0" styleClass="contentButton" text="Card payment" textFill="WHITE" />
                                  </children>
                               </HBox>
                            </children>

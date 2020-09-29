@@ -36,7 +36,7 @@ public class CreditCard extends Product{
 		return debt;
 	}
 
-	public double getDayOfPayment() {
+	public int getDayOfPayment() {
 		return dayOfPayment;
 	}
 	

@@ -80,5 +80,6 @@ public class UsersTable extends AnchorPane implements Initializable {
 		cashColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("money"));
 		cashColumn.setStyle("-fx-alignment: CENTER");
 	}
+	
 
 }
