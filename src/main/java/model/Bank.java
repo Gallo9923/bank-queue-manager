@@ -17,6 +17,7 @@ public class Bank {
 
 	private String name;
 	private Queue<Person> regular;
+	private ArrayList<Person> peopleInRegular;
 	private PriorityQueue<Person> priority;
 	private HashTable<Integer, Client> oldClients;
 	private HashTable<Integer, Client> clients;
@@ -43,6 +44,7 @@ public class Bank {
 		operations = new Stack<Person>();
 		currentPerson = null;
 		accountNumberCounter = 0;
+		peopleInRegular = new ArrayList<Person>();
 	}
 
 	public ArrayList<Client> getClients(){
@@ -167,6 +169,7 @@ public class Bank {
 			p.setIsInLine(true);
 			if (p.getPriority() == 1) {
 				regular.enqueue(p);
+				peopleInRegular.add(0, p);
 			} else {
 				priority.add(p);
 			}
@@ -185,7 +188,7 @@ public class Bank {
 	 */
 	private Person createRandomPerson() {
 		Random r = new Random();
-		return new Person(r.nextInt(), "Carlos", generateRandomPriority());
+		return new Person(Math.abs(r.nextInt()), "Carlos", generateRandomPriority());
 
 	}
 
@@ -201,18 +204,20 @@ public class Bank {
 
 		HashSet<Integer> difference = new HashSet<Integer>(allClients);
 		difference.removeAll(clientsInBank);
+		
+		if(difference.size() > 0) {
+			Iterator<Integer> iter = difference.iterator();
+			int element = new Random().nextInt(difference.size());
 
-		Iterator<Integer> iter = difference.iterator();
-		int element = new Random().nextInt(difference.size());
+			for (int i = 0; i < element - 1; i++) {
+				iter.next();
+			}
 
-		for (int i = 0; i < element - 1; i++) {
-			iter.next();
+			int key = iter.next();
+			client = clients.get(key);
+			client.clearOperations();
 		}
-
-		int key = iter.next();
-		client = clients.get(key);
-		client.clearOperations();
-
+		
 		return client;
 
 	}
@@ -347,8 +352,11 @@ public class Bank {
 	public boolean nextInPriorityQueue() {
 		boolean operationStatus = false; 
 		
-		if(priority.size() > 1 ) {
-			currentPerson.setIsInLine(false);
+		if(priority.size() > 0 ) {
+			
+			if(currentPerson != null) {
+				currentPerson.setIsInLine(false);
+			}
 			this.operations = new Stack<Person>();
 			currentPerson = priority.poll();
 			operationStatus = true;
@@ -366,13 +374,31 @@ public class Bank {
 		boolean operationStatus = false; 
 		
 		if(regular.size() > 0) {
-			
+			if(currentPerson != null) {
+				currentPerson.setIsInLine(false);
+			}
 			this.operations = new Stack<Person>();
 			currentPerson = regular.dequeue();
 			operationStatus = true;
+			peopleInRegular.remove(peopleInRegular.size()-1);
 		}
 		
 		return operationStatus;
 	}
 	
+	public int getPriorityQueueSize() {
+		return priority.size();
+	}
+	
+	public int getRegularQueueSize() {
+		return regular.size();
+	}
+	
+	public ArrayList<Person> getPeopleInRegularQueue(){
+		return peopleInRegular;
+	}
+	
+	public Person peekPriorityQueue() {
+		return priority.peek();
+	}
 }

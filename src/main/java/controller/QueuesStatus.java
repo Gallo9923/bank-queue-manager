@@ -1,27 +1,75 @@
 package controller;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import model.Bank;
+import model.Person;
+import ui.Main;
 
 public class QueuesStatus extends AnchorPane {
 
-    @FXML
-    private ScrollPane priorityScrollPane;
+	private Bank bank;
 
-    @FXML
-    private ScrollPane regularScrollPane;
-	
+	@FXML
+	private ScrollPane rScrollPane;
+
+	@FXML
+	private VBox priorityScrollPane;
+
+	@FXML
+	private VBox regularScrollPane;
+
 	public QueuesStatus() {
+		bank = Main.bank;
+	}
+
+	@FXML
+	private ScrollPane queueDisplay;
+
+	@FXML
+	void generateArrival(ActionEvent event) {
+		bank.generateRandomArrival();
+		updateQueueStatus();
+		updateQueues();
+	}
+
+	private void updateQueueStatus() {
+		MainMenu.getInstance().updateQueueStatus();
+		;
+	}
+
+	private void updateQueues() {
+		updateRegularQueue();
+		updatePriorityQueue();
+	}
+
+	private void updatePriorityQueue() {
+		priorityScrollPane.getChildren().clear();
+		priorityScrollPane.getChildren().add(getPersonLabel(bank.peekPriorityQueue()));
 		
 	}
 	
-    @FXML
-    private ScrollPane queueDisplay;
+	private void updateRegularQueue() {
+		ArrayList<Person> persons = bank.getPeopleInRegularQueue();
 
-    @FXML
-    void generateArrival(ActionEvent event) {
-    		
-    }
+		regularScrollPane.getChildren().clear();
+		
+		for (int i = persons.size()-1; i >= 0; i--) {
+			regularScrollPane.getChildren().add(getPersonLabel(persons.get(i)));
+	
+		}
+
+	}
+
+	private Label getPersonLabel(Person p) {
+		Label label = new Label(p.getName() + " " + p.getIdentification() + "\n");
+		return label;
+	}
+
 }

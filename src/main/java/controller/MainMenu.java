@@ -27,6 +27,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Bank;
+import ui.Main;
 
 public class MainMenu implements Initializable {
 
@@ -41,12 +43,6 @@ public class MainMenu implements Initializable {
 
 	@FXML
 	private VBox mainMenu;
-
-	@FXML
-	private JFXButton nextTurnPriority;
-
-	@FXML
-	private JFXButton nextTurnRegular;
 
 	@FXML
 	private Label currentTurnPriorityQueue;
@@ -65,7 +61,9 @@ public class MainMenu implements Initializable {
 
 	@FXML
 	private JFXButton exitButton;
-
+	
+	private Bank bank;
+	private static MainMenu mMenu;
 	private Pane usersTableScene;
 	private Pane usersOperationScene;
 	private Pane queuesStatusScene;
@@ -80,6 +78,8 @@ public class MainMenu implements Initializable {
 
 			this.queuesStatusScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/QueuesStatus.fxml"));
 
+			mMenu = this;
+			bank = Main.bank;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -165,4 +165,48 @@ public class MainMenu implements Initializable {
 		System.exit(0);
 	}
 
+	@FXML
+    void nextTurnPriority(ActionEvent event) {
+		boolean result = bank.nextInPriorityQueue();
+		if (result) {
+			switch2UserOperations(null);
+			updateQueueStatus();
+		}
+    }
+
+    @FXML
+    void nextTurnRegular(ActionEvent event) {
+    	boolean result = bank.nextInRegularQueue();
+    	if(result) {
+    		switch2UserOperations(null);
+    		updateQueueStatus();
+    	}
+    	
+    }
+
+	
+	public static MainMenu getInstance() {
+		return mMenu;
+	}
+	
+	public void updateQueueStatus() {
+		int priorityNumber = bank.getPriorityQueueSize();
+		int regularNumber = bank.getRegularQueueSize();
+		
+		if(priorityNumber == 0) {
+			currentTurnPriorityQueue.setText("None");
+		}else {
+			currentTurnPriorityQueue.setText(priorityNumber + "");
+		}
+		
+		if(regularNumber == 0) {
+			currentTurnRegularQueue.setText("None");
+		}else {
+			currentTurnRegularQueue.setText(regularNumber + "");
+		}
+		
+	}
+	
+	
+	
 }
