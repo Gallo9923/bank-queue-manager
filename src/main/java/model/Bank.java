@@ -245,7 +245,7 @@ public class Bank {
 		accountNumberCounter++;
 		// Generate Random Products
 
-		CreditCard cc = new CreditCard(identification, 15,  Math.abs(r.nextInt(2000000)));
+		CreditCard cc = new CreditCard(identification, r.nextInt(30)+1,  Math.abs(r.nextInt(2000000)));
 		DebitCard dc = new DebitCard(identification, Math.abs(r.nextInt(3000000)));
 		
 		client.addProduct(cc);

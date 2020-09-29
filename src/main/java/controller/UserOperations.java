@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -117,14 +118,42 @@ public class UserOperations extends AnchorPane implements Initializable {
 
 	@FXML
 	void submit(ActionEvent event) {
-		System.out.println(operationTextField.getText());
-		undoBtn.setDisable(false);
+	
+		try {
+			double amount = Double.parseDouble(operationTextField.getText());
+			switch (currentOperation) {
+			case NONE:
+				break;
+			case ACCOUNT_CANCELATION:
+				bank.cancelAccount(bank.getCurrentPerson().getIdentification(), "No reason", LocalDate.now());
+				break;
+			case WITHDRAWAL:
+				bank.withdraw(amount);
+				break;
+			case DEPOSIT:
+				bank.deposit(amount);
+				break;
+			case CARD_PAYMENT:
+				bank.payCreditCard(amount);
+				break;
+			}
+			
+			updatePersonInformation();
+			undoBtn.setDisable(false);
+			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		
 		setCurrentState(Operation.NONE);
 	}
 
+
 	@FXML
 	void undo(ActionEvent event) {
-
+		bank.undoOperation();
+		updatePersonInformation();
+		undoBtn.setDisable(false);
 	}
 
 	private void setCurrentState(Operation op, String promptText) {
@@ -167,6 +196,9 @@ public class UserOperations extends AnchorPane implements Initializable {
 			cashLabel.setText("None");
 			debtLabel.setText("None");
 			paymentDateLabel.setText("None");
+
+			disableOperationButttons();
+
 		} else {
 
 			if (currentPerson instanceof Client) {
@@ -180,18 +212,39 @@ public class UserOperations extends AnchorPane implements Initializable {
 				debtLabel.setText(currentClient.getDebt() + "");
 				paymentDateLabel.setText(currentClient.getPaymentDate() + "");
 
+				enableOperationButtons();
+
 			} else {
 				idLabel.setText(currentPerson.getIdentification() + "");
 				nameLabel.setText(currentPerson.getName());
-
 				accountLabel.setText("None");
 				enrollmentDateLabel.setText("None");
 				cashLabel.setText("None");
 				debtLabel.setText("None");
 				paymentDateLabel.setText("None");
+
+				disableOperationButttons();
 			}
 
 		}
+	}
+
+	private void enableOperationButtons() {
+		withdrawalBtn.setDisable(false);
+		depositBtn.setDisable(false);
+		accountCancelationBtn.setDisable(false);
+		cardPaymentBtn.setDisable(false);
+		submitBtn.setDisable(false);
+		undoBtn.setDisable(true);
+	}
+
+	private void disableOperationButttons() {
+		withdrawalBtn.setDisable(true);
+		depositBtn.setDisable(true);
+		accountCancelationBtn.setDisable(true);
+		cardPaymentBtn.setDisable(true);
+		submitBtn.setDisable(true);
+		undoBtn.setDisable(true);
 	}
 
 	public static UserOperations getInstance() {

@@ -105,6 +105,7 @@ public class MainMenu implements Initializable {
 	@FXML
 	void switch2UserOperations(ActionEvent event) {
 		switch2(userOperations, usersOperationScene);
+		UserOperations.getInstance().updatePersonInformation();
 	}
 
 	@FXML
