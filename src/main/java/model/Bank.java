@@ -231,21 +231,24 @@ public class Bank {
 
 		// Generate Random ID
 		Random r = new Random();
-		int identification = r.nextInt();
+		int identification = Math.abs(r.nextInt());
 		while (clients.containsKey(identification)) {
-			identification = r.nextInt();
+			identification = Math.abs(r.nextInt());
 		}
 
 		Client client = new Client(accountNumberCounter, identification, "Chris", generateRandomPriority());
 		accountNumberCounter++;
 		// Generate Random Products
 
-		CreditCard cc = new CreditCard(identification, 15,  r.nextDouble());
-		DebitCard dc = new DebitCard(identification, r.nextDouble());
+		CreditCard cc = new CreditCard(identification, 15,  Math.abs(r.nextInt(2000000)));
+		DebitCard dc = new DebitCard(identification, Math.abs(r.nextInt(3000000)));
 		
 		client.addProduct(cc);
 		client.addProduct(dc);
-
+		
+		allClients.add(identification);
+		clients.put(identification, client);
+		
 		return client;
 	}
 	

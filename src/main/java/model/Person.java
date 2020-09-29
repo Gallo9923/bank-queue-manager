@@ -30,7 +30,7 @@ public class Person implements Comparable<Person> {
 	public int getIdentification() {
 		return identification;
 	}
-
+	
 	public int getPriority() {
 		return priority;
 	}

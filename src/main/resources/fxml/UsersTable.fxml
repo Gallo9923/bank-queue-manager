@@ -30,12 +30,12 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="270.0" prefWidth="554.0">
                      <children>
-                        <TableView prefHeight="237.0" prefWidth="549.0" HBox.hgrow="ALWAYS">
+                        <TableView fx:id="clientsTable" prefHeight="237.0" prefWidth="549.0" HBox.hgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="100.0" text="id" />
-                            <TableColumn prefWidth="146.0" text="name" />
-                              <TableColumn prefWidth="115.0" text="time" />
-                              <TableColumn prefWidth="138.0" text="cash" />
+                            <TableColumn fx:id="idColumn" prefWidth="100.0" text="id" />
+                            <TableColumn fx:id="nameColumn" prefWidth="146.0" text="name" />
+                              <TableColumn fx:id="timeColumn" prefWidth="115.0" text="time" />
+                              <TableColumn fx:id="cashColumn" prefWidth="138.0" text="cash" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

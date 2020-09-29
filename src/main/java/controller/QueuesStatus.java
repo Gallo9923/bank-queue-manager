@@ -22,6 +22,6 @@ public class QueuesStatus extends AnchorPane {
 
     @FXML
     void generateArrival(ActionEvent event) {
-
+    		
     }
 }
