@@ -17,10 +17,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			root = FXMLLoader.load(getClass().getResource("/mainMenu.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
+			primaryStage.setFullScreen(true);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Great Bank Manager");
 			primaryStage.show();
 			scene.setFill(Color.TRANSPARENT);
 			root.setOnMousePressed(new EventHandler<MouseEvent>() {
