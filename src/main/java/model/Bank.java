@@ -227,7 +227,13 @@ public class Bank {
 
 	public int generateRandomPriority() {
 		Random r = new Random();
-		return r.nextInt(4) + 1;
+		int result = 4;
+		
+		if(r.nextDouble() < 0.5) {
+			result = r.nextInt(2)+1;
+		} 
+		
+		return result;
 	}
 
 	/**
