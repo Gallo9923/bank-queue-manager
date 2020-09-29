@@ -30,10 +30,10 @@ public class UserOperations extends AnchorPane implements Initializable {
 
 	@FXML
 	private JFXButton undoBtn;
-	
+
 	@FXML
 	private JFXButton submitBtn;
-	
+
 	@FXML
 	private Label idLabel;
 
@@ -62,6 +62,15 @@ public class UserOperations extends AnchorPane implements Initializable {
 		currentOperation = Operation.NONE;
 		undoBtn.setDisable(true);
 		setCurrentState(Operation.NONE);
+
+		NumberValidator numVal = new NumberValidator("Must be a number");
+		operationTextField.getValidators().add(numVal);
+
+		operationTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if (!newValue)
+				operationTextField.validate();
+		});
+
 	}
 
 	@FXML
@@ -98,20 +107,20 @@ public class UserOperations extends AnchorPane implements Initializable {
 
 	private void setCurrentState(Operation op, String promptText) {
 		currentOperation = op;
-		if(currentOperation != Operation.NONE && currentOperation != Operation.ACCOUNT_CANCELATION) {
-			enableTextField(promptText);		
+		if (currentOperation != Operation.NONE && currentOperation != Operation.ACCOUNT_CANCELATION) {
+			enableTextField(promptText);
 			submitBtn.setDisable(false);
 		}
 	}
-	
+
 	private void setCurrentState(Operation op) {
 		this.currentOperation = op;
-		
-		if(currentOperation == Operation.ACCOUNT_CANCELATION) {	
+
+		if (currentOperation == Operation.ACCOUNT_CANCELATION) {
 			operationTextField.setVisible(false);
 			confirmationLabel.setVisible(true);
 			submitBtn.setDisable(false);
-		} else {			
+		} else {
 			operationTextField.setVisible(false);
 			confirmationLabel.setVisible(false);
 			submitBtn.setDisable(true);
