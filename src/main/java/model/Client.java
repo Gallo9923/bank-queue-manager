@@ -23,6 +23,16 @@ public class Client extends Person {
 		this.operations = new Stack<ArrayList<Product>>();
 		this.products = new ArrayList<Product>();
 	}
+	
+	public Client(int accountNumber, int identification, String name, int priority, LocalDate registrationDate) {
+		super(identification, name, priority);
+		this.accountNumber = accountNumber;
+		this.registrationDate = registrationDate;
+		this.cancellationReason = null;
+		this.cancellationDate = null;
+		this.operations = new Stack<ArrayList<Product>>();
+		this.products = new ArrayList<Product>();
+	}
 
 	/**
 	 * Clone the products of the client

@@ -120,30 +120,38 @@ public class UserOperations extends AnchorPane implements Initializable {
 	@FXML
 	void submit(ActionEvent event) {
 	
-		try {
-			double amount = Double.parseDouble(operationTextField.getText());
-			switch (currentOperation) {
-			case NONE:
-				break;
-			case ACCOUNT_CANCELATION:
-				bank.cancelAccount(bank.getCurrentPerson().getIdentification(), "No reason", LocalDate.now());
-				break;
-			case WITHDRAWAL:
-				bank.withdraw(amount);
-				break;
-			case DEPOSIT:
-				bank.deposit(amount);
-				break;
-			case CARD_PAYMENT:
-				bank.payCreditCard(amount);
-				break;
+		
+		if(currentOperation == Operation.ACCOUNT_CANCELATION) {
+			if(bank.getCurrentPerson() != null) {
+				bank.cancelAccount(bank.getCurrentPerson().getIdentification(), description.getText(), LocalDate.now());
+				System.out.println(description.getText());
 			}
 			
-			updatePersonInformation();
-			undoBtn.setDisable(false);
-			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
+		}else {
+			try {
+				double amount = Double.parseDouble(operationTextField.getText());
+				switch (currentOperation) {
+				case NONE:
+					break;
+				case WITHDRAWAL:
+					bank.withdraw(amount);
+					break;
+				case DEPOSIT:
+					bank.deposit(amount);
+					break;
+				case CARD_PAYMENT:
+					bank.payCreditCard(amount);
+					break;
+				default:
+					break;
+				} 
+				
+				updatePersonInformation();
+				undoBtn.setDisable(false);
+				
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		setCurrentState(Operation.NONE);
@@ -154,7 +162,6 @@ public class UserOperations extends AnchorPane implements Initializable {
 	void undo(ActionEvent event) {
 		bank.undoOperation();
 		updatePersonInformation();
-		undoBtn.setDisable(false);
 	}
 
 	private void setCurrentState(Operation op, String promptText) {
@@ -236,7 +243,7 @@ public class UserOperations extends AnchorPane implements Initializable {
 		accountCancelationBtn.setDisable(false);
 		cardPaymentBtn.setDisable(false);
 		submitBtn.setDisable(false);
-		undoBtn.setDisable(true);
+		undoBtn.setDisable(false);
 	}
 
 	private void disableOperationButttons() {

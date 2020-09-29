@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
@@ -49,23 +50,44 @@ public class UsersTable extends AnchorPane implements Initializable {
 		sortByComboBox.getItems().add("Name");
 		sortByComboBox.getItems().add("Date");
 		sortByComboBox.getItems().add("Cash");
-
+		
+		updateTableData(bank.getClients());
+		
 	}
 
 	@FXML
 	void addNewRandomUser(ActionEvent event) {
 		bank.createRandomClient();
-		updateTableData();
+		updateTableData(bank.getClients());
 	}
 
 	@FXML
 	void sort(ActionEvent event) {
-		String selecteCriteria = sortByComboBox.getValue();
-		System.out.println(selecteCriteria);
+		String selectedCriteria = sortByComboBox.getValue();
+		ArrayList<Client> clients = null;
+		switch(selectedCriteria) {
+			case "Id":
+				clients = bank.sortByClientIdentification();
+				break;
+			case "Name":
+				clients = bank.sortByClientName();
+				break;
+			case "Date":
+				clients = bank.sortByTimeSinceRegistration();
+				break;
+			case "Cash":
+				clients = bank.sortByMoney();
+				break;
+		}
+		
+		if(clients != null) {
+			updateTableData(clients);
+		}
+		
 	}
 	
-	private void updateTableData() {
-		ObservableList<Client> clientsOL = FXCollections.observableArrayList(bank.getClients());
+	private void updateTableData(ArrayList<Client> clients) {
+		ObservableList<Client> clientsOL = FXCollections.observableArrayList(clients);
 		clientsTable.setItems(clientsOL);
 		
 		idColumn.setCellValueFactory(new PropertyValueFactory<Client, Integer>("Identification"));

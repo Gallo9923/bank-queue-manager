@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -132,6 +133,7 @@ public class Bank {
 		Client client = clients.get(identification);
 		client.setCancellationReason(cancellationReason);
 		client.setCancellationDate(LocalDate.now());
+		this.currentPerson = null;
 		operations.push(client);
 
 		clients.remove(identification);
@@ -139,7 +141,7 @@ public class Bank {
 
 		return true;
 	}
-
+	
 	/**
 	 * Generates a random arrival of a person or client to the bank
 	 * 
@@ -188,7 +190,8 @@ public class Bank {
 	 */
 	private Person createRandomPerson() {
 		Random r = new Random();
-		return new Person(Math.abs(r.nextInt()), "Carlos", generateRandomPriority());
+		
+		return new Person(Math.abs(r.nextInt()), NameGenerator.getInstance().getRandomCompleteName(), generateRandomPriority());
 
 	}
 
@@ -241,7 +244,8 @@ public class Bank {
 			identification = Math.abs(r.nextInt());
 		}
 
-		Client client = new Client(accountNumberCounter, identification, "Chris", generateRandomPriority());
+		LocalDate registrationDate = LocalDate.now().minusDays(r.nextInt(913));
+		Client client = new Client(accountNumberCounter, identification, NameGenerator.getInstance().getRandomCompleteName(), generateRandomPriority(), registrationDate);
 		accountNumberCounter++;
 		// Generate Random Products
 
@@ -266,7 +270,7 @@ public class Bank {
 	public boolean withdraw(double amount) {
 		boolean operationStatus = false;
 		
-		if(currentPerson instanceof Client) {
+		if(currentPerson != null && currentPerson instanceof Client) {
 			Client client = (Client)currentPerson;
 			operationStatus = client.withdraw(amount);
 		}
@@ -283,7 +287,7 @@ public class Bank {
 		
 		boolean operationStatus = false;
 		
-		if(currentPerson instanceof Client) {
+		if(currentPerson != null && currentPerson instanceof Client) {
 			Client client = (Client)currentPerson;
 			operationStatus = client.deposit(amount);
 		}
@@ -301,7 +305,7 @@ public class Bank {
 		
 		boolean operationStatus = false;
 		
-		if(currentPerson instanceof Client) {
+		if(currentPerson != null && currentPerson instanceof Client) {
 			Client client = (Client)currentPerson;
 			operationStatus = client.payCreditCard(amount);
 		}
@@ -329,6 +333,8 @@ public class Bank {
 			Client client = (Client)operations.pop();
 			client.setCancellationDate(null);
 			client.setCancellationReason(null);
+			
+			currentPerson = client;
 			
 			oldClients.remove(client.getIdentification());
 			clients.put(client.getIdentification(), client);
