@@ -418,8 +418,10 @@ public class Bank {
 			return null;
 		}
 		
-		
+	
 	}
+	
+	
 	
 	public Person getCurrentPerson() {
 		return this.currentPerson;

@@ -51,6 +51,8 @@ public class UsersTable extends AnchorPane implements Initializable {
 		sortByComboBox.getItems().add("Date");
 		sortByComboBox.getItems().add("Cash");
 		
+		
+		
 		updateTableData(bank.getClients());
 		
 	}
@@ -64,24 +66,27 @@ public class UsersTable extends AnchorPane implements Initializable {
 	@FXML
 	void sort(ActionEvent event) {
 		String selectedCriteria = sortByComboBox.getValue();
-		ArrayList<Client> clients = null;
-		switch(selectedCriteria) {
-			case "Id":
-				clients = bank.sortByClientIdentification();
-				break;
-			case "Name":
-				clients = bank.sortByClientName();
-				break;
-			case "Date":
-				clients = bank.sortByTimeSinceRegistration();
-				break;
-			case "Cash":
-				clients = bank.sortByMoney();
-				break;
-		}
 		
-		if(clients != null) {
-			updateTableData(clients);
+		if(selectedCriteria != null) {
+			ArrayList<Client> clients = null;
+			switch(selectedCriteria) {
+				case "Id":
+					clients = bank.sortByClientIdentification();
+					break;
+				case "Name":
+					clients = bank.sortByClientName();
+					break;
+				case "Date":
+					clients = bank.sortByTimeSinceRegistration();
+					break;
+				case "Cash":
+					clients = bank.sortByMoney();
+					break;
+			}
+			
+			if(clients != null) {
+				updateTableData(clients);
+			}
 		}
 		
 	}
