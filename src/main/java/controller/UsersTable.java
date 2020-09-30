@@ -39,6 +39,9 @@ public class UsersTable extends AnchorPane implements Initializable {
 	@FXML
 	private JFXComboBox<String> sortByComboBox;
 
+	@FXML
+    private JFXComboBox<String> sortByOrder;
+	
 	public UsersTable() {
 
 	}
@@ -50,6 +53,11 @@ public class UsersTable extends AnchorPane implements Initializable {
 		sortByComboBox.getItems().add("Name");
 		sortByComboBox.getItems().add("Date");
 		sortByComboBox.getItems().add("Cash");
+		sortByComboBox.getSelectionModel().selectFirst(); //Way 1
+		
+		sortByOrder.getItems().add("Ascending");
+		sortByOrder.getItems().add("Descending");
+		sortByOrder.setValue("Descending"); //Way 2
 		
 		
 		
@@ -66,21 +74,29 @@ public class UsersTable extends AnchorPane implements Initializable {
 	@FXML
 	void sort(ActionEvent event) {
 		String selectedCriteria = sortByComboBox.getValue();
+		String sortOrder = sortByOrder.getValue();
 		
-		if(selectedCriteria != null) {
+		
+		if(selectedCriteria != null && sortOrder != null) {
+			
+			boolean descending = false;
+			if(sortOrder.equals("Descending")) {
+				descending = true;
+			}
+			
 			ArrayList<Client> clients = null;
 			switch(selectedCriteria) {
 				case "Id":
-					clients = bank.sortByClientIdentification();
+					clients = bank.sortByClientIdentification(descending);
 					break;
 				case "Name":
-					clients = bank.sortByClientName();
+					clients = bank.sortByClientName(descending);
 					break;
 				case "Date":
-					clients = bank.sortByTimeSinceRegistration();
+					clients = bank.sortByTimeSinceRegistration(descending);
 					break;
 				case "Cash":
-					clients = bank.sortByMoney();
+					clients = bank.sortByMoney(descending);
 					break;
 			}
 			

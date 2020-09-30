@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -62,10 +63,10 @@ public class Bank {
 
 	}
 
-	public ArrayList<Client> sortByClientName() {
+	public ArrayList<Client> sortByClientName(boolean descending) {
 
 		ArrayList<Client> cl = getClients();
-
+		
 		Sorter.mergeSort(cl, new Comparator<Client>() {
 			@Override
 			public int compare(Client c1, Client c2) {
@@ -73,11 +74,15 @@ public class Bank {
 			}
 
 		});
+		
+		if(descending) {
+			Collections.reverse(cl);
+		}
 
 		return cl;
 	}
 
-	public ArrayList<Client> sortByClientIdentification() {
+	public ArrayList<Client> sortByClientIdentification(boolean descending) {
 
 		ArrayList<Client> cl = getClients();
 
@@ -99,25 +104,37 @@ public class Bank {
 
 		});
 
+		if(descending) {
+			Collections.reverse(cl);
+		}
+		
 		return cl;
 	}
 
-	public ArrayList<Client> sortByTimeSinceRegistration() {
+	public ArrayList<Client> sortByTimeSinceRegistration(boolean descending) {
 
 		ArrayList<Client> cl = getClients();
 		Sorter.insertionSort(cl, (c1, c2) -> {
-			return c1.getRegistrationDate().compareTo(c2.getRegistrationDate());
+			return c2.getRegistrationDate().compareTo(c1.getRegistrationDate());
 		});
 
+		if(descending) {
+			Collections.reverse(cl);
+		}
+		
 		return cl;
 	}
 
-	public ArrayList<Client> sortByMoney() {
+	public ArrayList<Client> sortByMoney(boolean descending) {
 
 		ArrayList<Client> cl = getClients();
 		Sorter.heapSort(cl, (c1, c2) -> {
 			return Double.compare(c1.getMoney(), c2.getMoney());
 		});
+		
+		if(descending) {
+			Collections.reverse(cl);
+		}
 
 		return cl;
 	}

@@ -59,9 +59,17 @@
       </HBox>
    </bottom>
    <right>
-      <VBox alignment="CENTER" prefHeight="270.0" prefWidth="138.0">
+      <VBox alignment="CENTER" prefHeight="332.0" prefWidth="190.0">
          <children>
-            <JFXComboBox fx:id="sortByComboBox" focusColor="#0066b1" labelFloat="true" prefHeight="26.0" prefWidth="104.0" promptText="Sort by" style="-jfx-label-float: true;" />
+            <JFXComboBox fx:id="sortByComboBox" focusColor="#0066b1" labelFloat="true" prefHeight="26.0" prefWidth="130.0" promptText="Sort by" style="-jfx-label-float: true;">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></JFXComboBox>
+            <JFXComboBox fx:id="sortByOrder" focusColor="#0066b1" labelFloat="true" prefHeight="29.0" prefWidth="130.0" promptText="Order" style="-jfx-label-float: true;">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXComboBox>
             <HBox alignment="CENTER" prefHeight="69.0" prefWidth="104.0" />
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="104.0">
                <children>
