@@ -48,80 +48,80 @@ public class Bank {
 		peopleInRegular = new ArrayList<Person>();
 	}
 
-	public ArrayList<Client> getClients(){
-		
+	public ArrayList<Client> getClients() {
+
 		ArrayList<Client> cl = new ArrayList<Client>(this.clients.size());
-		
+
 		Iterator<Integer> iter = allClients.iterator();
-		
-		while(iter.hasNext()) {
+
+		while (iter.hasNext()) {
 			cl.add(clients.get(iter.next()));
 		}
-		
+
 		return cl;
-		
+
 	}
-	
+
 	public ArrayList<Client> sortByClientName() {
-		
+
 		ArrayList<Client> cl = getClients();
-		
+
 		Sorter.mergeSort(cl, new Comparator<Client>() {
 			@Override
 			public int compare(Client c1, Client c2) {
 				return c1.getName().compareTo(c2.getName());
 			}
-			
+
 		});
-		
+
 		return cl;
 	}
-	
+
 	public ArrayList<Client> sortByClientIdentification() {
-		
+
 		ArrayList<Client> cl = getClients();
-		
+
 		Sorter.mergeSort(cl, new Comparator<Client>() {
 			@Override
 			public int compare(Client c1, Client c2) {
 				int id1 = c1.getIdentification();
 				int id2 = c2.getIdentification();
 				int result = 0;
-				
-				if(id1 - id2 < 0) {
+
+				if (id1 - id2 < 0) {
 					result = -1;
-				}else if(id1 - id2 > 0) {
+				} else if (id1 - id2 > 0) {
 					result = 1;
 				}
-				
+
 				return result;
 			}
-			
+
 		});
-		
+
 		return cl;
 	}
-	
+
 	public ArrayList<Client> sortByTimeSinceRegistration() {
-		
+
 		ArrayList<Client> cl = getClients();
 		Sorter.insertionSort(cl, (c1, c2) -> {
 			return c1.getRegistrationDate().compareTo(c2.getRegistrationDate());
-		} ); 
-		
+		});
+
 		return cl;
 	}
-	
-	public ArrayList<Client> sortByMoney(){
-		
+
+	public ArrayList<Client> sortByMoney() {
+
 		ArrayList<Client> cl = getClients();
 		Sorter.heapSort(cl, (c1, c2) -> {
 			return Double.compare(c1.getMoney(), c2.getMoney());
 		});
-		
+
 		return cl;
 	}
-	
+
 	/**
 	 * Cancels the account of a client
 	 * 
@@ -141,7 +141,7 @@ public class Bank {
 
 		return true;
 	}
-	
+
 	/**
 	 * Generates a random arrival of a person or client to the bank
 	 * 
@@ -190,8 +190,9 @@ public class Bank {
 	 */
 	private Person createRandomPerson() {
 		Random r = new Random();
-		
-		return new Person(Math.abs(r.nextInt()), NameGenerator.getInstance().getRandomCompleteName(), generateRandomPriority());
+
+		return new Person(Math.abs(r.nextInt()), NameGenerator.getInstance().getRandomCompleteName(),
+				generateRandomPriority());
 
 	}
 
@@ -207,8 +208,8 @@ public class Bank {
 
 		HashSet<Integer> difference = new HashSet<Integer>(allClients);
 		difference.removeAll(clientsInBank);
-		
-		if(difference.size() > 0) {
+
+		if (difference.size() > 0) {
 			Iterator<Integer> iter = difference.iterator();
 			int element = new Random().nextInt(difference.size());
 
@@ -220,7 +221,7 @@ public class Bank {
 			client = clients.get(key);
 			client.clearOperations();
 		}
-		
+
 		return client;
 
 	}
@@ -228,11 +229,11 @@ public class Bank {
 	public int generateRandomPriority() {
 		Random r = new Random();
 		int result = 4;
-		
-		if(r.nextDouble() < 0.5) {
-			result = r.nextInt(2)+1;
-		} 
-		
+
+		if (r.nextDouble() < 0.5) {
+			result = r.nextInt(2) + 1;
+		}
+
 		return result;
 	}
 
@@ -251,22 +252,23 @@ public class Bank {
 		}
 
 		LocalDate registrationDate = LocalDate.now().minusDays(r.nextInt(913));
-		Client client = new Client(accountNumberCounter, identification, NameGenerator.getInstance().getRandomCompleteName(), generateRandomPriority(), registrationDate);
+		Client client = new Client(accountNumberCounter, identification,
+				NameGenerator.getInstance().getRandomCompleteName(), generateRandomPriority(), registrationDate);
 		accountNumberCounter++;
 		// Generate Random Products
 
-		CreditCard cc = new CreditCard(identification, r.nextInt(30)+1,  Math.abs(r.nextInt(2000000)));
+		CreditCard cc = new CreditCard(identification, r.nextInt(30) + 1, Math.abs(r.nextInt(2000000)));
 		DebitCard dc = new DebitCard(identification, Math.abs(r.nextInt(3000000)));
-		
+
 		client.addProduct(cc);
 		client.addProduct(dc);
-		
+
 		allClients.add(identification);
 		clients.put(identification, client);
-		
+
 		return client;
 	}
-	
+
 	/**
 	 * Withdraws an amount of money from the DebitCard product
 	 * 
@@ -275,32 +277,33 @@ public class Bank {
 	 */
 	public boolean withdraw(double amount) {
 		boolean operationStatus = false;
-		
-		if(currentPerson != null && currentPerson instanceof Client) {
-			Client client = (Client)currentPerson;
+
+		if (currentPerson != null && currentPerson instanceof Client) {
+			Client client = (Client) currentPerson;
 			operationStatus = client.withdraw(amount);
 		}
-		
+
 		return operationStatus;
 	}
-	
+
 	/**
 	 * Deposits an amount of money to the current person
+	 * 
 	 * @param amount
 	 * @return boolean True if the operation was successful
 	 */
 	public boolean deposit(double amount) {
-		
+
 		boolean operationStatus = false;
-		
-		if(currentPerson != null && currentPerson instanceof Client) {
-			Client client = (Client)currentPerson;
+
+		if (currentPerson != null && currentPerson instanceof Client) {
+			Client client = (Client) currentPerson;
 			operationStatus = client.deposit(amount);
 		}
-		
+
 		return operationStatus;
 	}
-	
+
 	/**
 	 * Pays an amount of money to the debt of a credit card
 	 * 
@@ -308,17 +311,17 @@ public class Bank {
 	 * @return boolean True if the operation was successful
 	 */
 	public boolean payCreditCard(double amount) {
-		
+
 		boolean operationStatus = false;
-		
-		if(currentPerson != null && currentPerson instanceof Client) {
-			Client client = (Client)currentPerson;
+
+		if (currentPerson != null && currentPerson instanceof Client) {
+			Client client = (Client) currentPerson;
 			operationStatus = client.payCreditCard(amount);
 		}
-		
+
 		return operationStatus;
 	}
-	
+
 	/**
 	 * Returns the name of the bank
 	 * 
@@ -330,99 +333,117 @@ public class Bank {
 
 	/**
 	 * Undoes the latest operation done to the client
+	 * 
 	 * @return
 	 */
 	public boolean undoOperation() {
 		boolean operationStatus = false;
-		
+
 		if (operations.size() > 0) {
-			Client client = (Client)operations.pop();
+			Client client = (Client) operations.pop();
 			client.setCancellationDate(null);
 			client.setCancellationReason(null);
-			
+
 			currentPerson = client;
-			
+
 			oldClients.remove(client.getIdentification());
 			clients.put(client.getIdentification(), client);
-			
+
 			operationStatus = true;
-		}else {
-			if(currentPerson instanceof Client) {
-				Client client = (Client)this.currentPerson;
+		} else {
+			if (currentPerson instanceof Client) {
+				Client client = (Client) this.currentPerson;
 				operationStatus = client.undoOperation();
 			}
 		}
-		
+
 		return operationStatus;
 	}
-	
+
 	/**
 	 * Attends the next person in the priority Queue
 	 * 
 	 * @return boolean True if the operation was successful
 	 */
 	public boolean nextInPriorityQueue() {
-		boolean operationStatus = false; 
-		
-		if(priority.size() > 0 ) {
-			
-			if(currentPerson != null) {
+		boolean operationStatus = false;
+
+		if (priority.size() > 0) {
+
+			if (currentPerson != null) {
 				currentPerson.setIsInLine(false);
 			}
 			this.operations = new Stack<Person>();
 			currentPerson = priority.poll();
 			operationStatus = true;
 		}
-		
+
 		return operationStatus;
 	}
-	
+
 	/**
 	 * Attends the next person in the priority Queue
 	 * 
 	 * @return boolean True if the operation was successful
 	 */
 	public boolean nextInRegularQueue() {
-		boolean operationStatus = false; 
-		
-		if(regular.size() > 0) {
-			if(currentPerson != null) {
+		boolean operationStatus = false;
+
+		if (regular.size() > 0) {
+			if (currentPerson != null) {
 				currentPerson.setIsInLine(false);
 			}
 			this.operations = new Stack<Person>();
 			currentPerson = regular.dequeue();
 			operationStatus = true;
-			peopleInRegular.remove(peopleInRegular.size()-1);
+			peopleInRegular.remove(peopleInRegular.size() - 1);
 		}
-		
+
 		return operationStatus;
 	}
-	
+
 	public int getPriorityQueueSize() {
 		return priority.size();
 	}
-	
+
 	public int getRegularQueueSize() {
 		return regular.size();
 	}
-	
-	public ArrayList<Person> getPeopleInRegularQueue(){
+
+	public ArrayList<Person> getPeopleInRegularQueue() {
 		return peopleInRegular;
 	}
-	
+
 	public Person peekPriorityQueue() {
-		
-		if(priority.size() > 0) {
+
+		if (priority.size() > 0) {
 			return priority.peek();
-		}else {
+		} else {
 			return null;
 		}
-		
-	
+
 	}
-	
-	
-	
+
+	public boolean isUndoPossible() {
+		boolean possible = false;
+
+		if (operations.size() > 0) {
+			possible = true;
+		} else {
+
+			if (currentPerson != null && currentPerson instanceof Client) {
+
+				Client client = (Client) currentPerson;
+				if (!client.isOperationsEmpty()) {
+					possible = true;
+				}
+			}
+		}
+
+		return possible;
+
+	}
+
 	public Person getCurrentPerson() {
 		return this.currentPerson;
 	}

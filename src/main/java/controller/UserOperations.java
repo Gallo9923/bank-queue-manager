@@ -119,15 +119,13 @@ public class UserOperations extends AnchorPane implements Initializable {
 
 	@FXML
 	void submit(ActionEvent event) {
-	
-		
-		if(currentOperation == Operation.ACCOUNT_CANCELATION) {
-			if(bank.getCurrentPerson() != null) {
+
+		if (currentOperation == Operation.ACCOUNT_CANCELATION) {
+			if (bank.getCurrentPerson() != null) {
 				bank.cancelAccount(bank.getCurrentPerson().getIdentification(), description.getText(), LocalDate.now());
-				System.out.println(description.getText());
 			}
-			
-		}else {
+
+		} else {
 			try {
 				double amount = Double.parseDouble(operationTextField.getText());
 				switch (currentOperation) {
@@ -144,19 +142,18 @@ public class UserOperations extends AnchorPane implements Initializable {
 					break;
 				default:
 					break;
-				} 
+				}
+
 				
-				updatePersonInformation();
-				undoBtn.setDisable(false);
 				
+
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
 		}
-		
+		updatePersonInformation();
 		setCurrentState(Operation.NONE);
 	}
-
 
 	@FXML
 	void undo(ActionEvent event) {
@@ -236,14 +233,14 @@ public class UserOperations extends AnchorPane implements Initializable {
 
 		}
 	}
-
+	
 	private void enableOperationButtons() {
 		withdrawalBtn.setDisable(false);
 		depositBtn.setDisable(false);
 		accountCancelationBtn.setDisable(false);
 		cardPaymentBtn.setDisable(false);
 		submitBtn.setDisable(false);
-		undoBtn.setDisable(false);
+		updateUndoButton();
 	}
 
 	private void disableOperationButttons() {
@@ -252,7 +249,15 @@ public class UserOperations extends AnchorPane implements Initializable {
 		accountCancelationBtn.setDisable(true);
 		cardPaymentBtn.setDisable(true);
 		submitBtn.setDisable(true);
-		undoBtn.setDisable(true);
+		updateUndoButton();
+	}
+	
+	private void updateUndoButton() {
+		if(bank.isUndoPossible()) {
+			undoBtn.setDisable(false);
+		}else {
+			undoBtn.setDisable(true);
+		}
 	}
 
 	public static UserOperations getInstance() {

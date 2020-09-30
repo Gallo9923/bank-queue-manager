@@ -214,6 +214,16 @@ public class Client extends Person {
 		return result;
 	}
 
+	public boolean isOperationsEmpty() {
+		
+		boolean isEmpty = true;
+		if(this.operations.size() > 0) {
+			isEmpty = false;
+		}
+		
+		return isEmpty;
+	}
+	
 	public double getDebt() {
 		boolean found = false;
 		double result = 0;
