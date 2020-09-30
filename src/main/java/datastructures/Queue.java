@@ -9,7 +9,6 @@ import java.util.Iterator;
  */
 public class Queue<E> implements IQueue<E>, Iterable<E> {
 
-	@SuppressWarnings("hiding")
 	protected class Node<T> {
 
 		private T data;
@@ -46,6 +45,7 @@ public class Queue<E> implements IQueue<E>, Iterable<E> {
 		size++;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void enqueue(E... data) {
 		for(E e : data)
 			enqueue(e);
@@ -74,6 +74,7 @@ public class Queue<E> implements IQueue<E>, Iterable<E> {
 		return new QueueIterator<E>(front);
 	}
 
+	@SuppressWarnings("hiding")
 	protected class QueueIterator<E> implements Iterator<E> {
 
 		private Node<E> currFront;

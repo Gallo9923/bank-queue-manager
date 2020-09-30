@@ -122,6 +122,7 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 	}
 	
 	public boolean containsKey(K key) {
+		@SuppressWarnings("unchecked")
 		Entry<K, V>[] tab = (Entry<K, V>[]) table;
 		int i = 0;
 		

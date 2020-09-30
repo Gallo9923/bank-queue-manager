@@ -177,7 +177,7 @@
                                           <Font size="19.0" />
                                        </font>
                                        <graphic>
-                                          <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="25" wrappingWidth="44.0" />
+                                          <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="25" text="" wrappingWidth="44.0" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
