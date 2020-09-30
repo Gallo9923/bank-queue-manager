@@ -85,7 +85,7 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                                        <children>
-                                          <JFXButton fx:id="nextTurnPriority" buttonType="RAISED" contentDisplay="RIGHT" styleClass="nextButton" text="Next" textFill="WHITE">
+                                          <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#nextTurnPriority" styleClass="nextButton" text="Next" textFill="WHITE">
                                              <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="CHEVRON_RIGHT" />
                                              </graphic>
@@ -97,7 +97,7 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                        <children>
-                                          <JFXButton fx:id="nextTurnRegular" buttonType="RAISED" contentDisplay="RIGHT" styleClass="nextButton" text="Next" textFill="WHITE">
+                                          <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#nextTurnRegular" styleClass="nextButton" text="Next" textFill="WHITE">
                                              <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="CHEVRON_RIGHT" />
                                              </graphic>
@@ -177,7 +177,7 @@
                                           <Font size="19.0" />
                                        </font>
                                        <graphic>
-                                          <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="25" wrappingWidth="44.0" />
+                                          <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="25" text="" wrappingWidth="44.0" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />

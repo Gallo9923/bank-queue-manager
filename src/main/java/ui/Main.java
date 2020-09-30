@@ -9,11 +9,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Bank;
 
 public class Main extends Application {
 	Parent root;
 	double xOffset, yOffset;
-
+	public static Bank bank;
+	
+	static {
+		bank = new Bank("The Great Bank");
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {

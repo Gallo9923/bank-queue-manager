@@ -36,7 +36,7 @@
             <Insets bottom="25.0" left="50.0" right="50.0" />
          </BorderPane.margin>
          <children>
-            <GridPane alignment="CENTER" hgap="30.0" prefHeight="286.0" prefWidth="536.0">
+            <GridPane alignment="CENTER" hgap="30.0" prefWidth="536.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,30 +46,30 @@
                 <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="249.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER" GridPane.vgrow="ALWAYS">
                      <children>
                         <Label text="Priority queue" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" GridPane.columnIndex="1">
+                  <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
                      <children>
                         <Label text="Regular queue" />
                      </children>
                   </HBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="priorityScrollPane" prefHeight="269.0" prefWidth="235.0">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="269.0" prefWidth="235.0" VBox.vgrow="ALWAYS">
                            <content>
-                              <VBox prefHeight="247.0" prefWidth="236.0" />
+                              <VBox fx:id="priorityScrollPane" alignment="CENTER" prefHeight="247.0" prefWidth="236.0" />
                            </content>
                         </ScrollPane>
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="regularScrollPane" prefHeight="267.0" prefWidth="235.0">
+                        <ScrollPane fx:id="rScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="267.0" prefWidth="235.0" VBox.vgrow="ALWAYS">
                           <content>
-                              <VBox prefHeight="250.0" prefWidth="235.0" />
+                              <VBox fx:id="regularScrollPane" alignment="CENTER" prefHeight="247.0" prefWidth="161.0" />
                           </content>
                         </ScrollPane>
                      </children>

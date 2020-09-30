@@ -13,7 +13,7 @@ public class Client extends Person {
 	private Stack<ArrayList<Product>> operations;
 	private ArrayList<Product> products;
 	private int accountNumber;
-	
+
 	public Client(int accountNumber, int identification, String name, int priority) {
 		super(identification, name, priority);
 		this.accountNumber = accountNumber;
@@ -24,6 +24,16 @@ public class Client extends Person {
 		this.products = new ArrayList<Product>();
 	}
 	
+	public Client(int accountNumber, int identification, String name, int priority, LocalDate registrationDate) {
+		super(identification, name, priority);
+		this.accountNumber = accountNumber;
+		this.registrationDate = registrationDate;
+		this.cancellationReason = null;
+		this.cancellationDate = null;
+		this.operations = new Stack<ArrayList<Product>>();
+		this.products = new ArrayList<Product>();
+	}
+
 	/**
 	 * Clone the products of the client
 	 * 
@@ -139,44 +149,40 @@ public class Client extends Person {
 
 		return operationStatus;
 	}
-	
+
 	/**
 	 * Returns the amount of time since registration
 	 * 
 	 * @return String
 	 */
-	public String timeSinceRegistration() {
-		
+	public String getTimeSinceRegistration() {
+
 		Period period = Period.between(this.registrationDate, LocalDate.now());
-	
-		return "Years: "+ period.getYears() + " Months: " + period.getMonths() + " Days: " + period.getDays();
-		
+
+		return "Years: " + period.getYears() + " Months: " + period.getMonths() + " Days: " + period.getDays();
+
 	}
 
 	public LocalDate getRegistrationDate() {
 		return registrationDate;
 	}
 
-
 	public String getCancellationReason() {
 		return cancellationReason;
 	}
-
 
 	public void setCancellationReason(String cancellationReason) {
 		this.cancellationReason = cancellationReason;
 	}
 
-
 	public LocalDate getCancellationDate() {
 		return cancellationDate;
 	}
 
-
 	public void setCancellationDate(LocalDate cancellationDate) {
 		this.cancellationDate = cancellationDate;
 	}
-	
+
 	public boolean addProduct(Product product) {
 		return products.add(product);
 	}
@@ -189,27 +195,63 @@ public class Client extends Person {
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
-	
+
 	protected Stack<ArrayList<Product>> getOperations() {
 		return operations;
 	}
-	
+
 	public double getMoney() {
-		
+
 		boolean found = false;
 		double result = 0;
-		for(int i=0; i<products.size() && !found; i++) {
-			if(products.get(i) != null && products.get(i) instanceof DebitCard) {
-				DebitCard dc = (DebitCard)products.get(i);
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof DebitCard) {
+				DebitCard dc = (DebitCard) products.get(i);
 				result = dc.getCash();
 			}
 		}
-		
+
 		return result;
 	}
+
+	public boolean isOperationsEmpty() {
+		
+		boolean isEmpty = true;
+		if(this.operations.size() > 0) {
+			isEmpty = false;
+		}
+		
+		return isEmpty;
+	}
 	
+	public double getDebt() {
+		boolean found = false;
+		double result = 0;
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof CreditCard) {
+				CreditCard cc = (CreditCard) products.get(i);
+				result = cc.getDebt();
+			}
+		}
+
+		return result;
+	}
+
+	public int getPaymentDate() {
+		boolean found = false;
+		int result = 0;
+		for (int i = 0; i < products.size() && !found; i++) {
+			if (products.get(i) != null && products.get(i) instanceof CreditCard) {
+				CreditCard cc = (CreditCard) products.get(i);
+				result = cc.getDayOfPayment();
+			}
+		}
+
+		return result;
+	}
+
 	public int getAccountNumber() {
 		return accountNumber;
 	}
-	
+
 }

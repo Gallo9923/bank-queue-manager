@@ -3,9 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
-
 import datastructures.HashTable;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -27,6 +25,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Bank;
+import ui.Main;
 
 public class MainMenu implements Initializable {
 
@@ -41,12 +41,6 @@ public class MainMenu implements Initializable {
 
 	@FXML
 	private VBox mainMenu;
-
-	@FXML
-	private JFXButton nextTurnPriority;
-
-	@FXML
-	private JFXButton nextTurnRegular;
 
 	@FXML
 	private Label currentTurnPriorityQueue;
@@ -65,7 +59,9 @@ public class MainMenu implements Initializable {
 
 	@FXML
 	private JFXButton exitButton;
-
+	
+	private Bank bank;
+	private static MainMenu mMenu;
 	private Pane usersTableScene;
 	private Pane usersOperationScene;
 	private Pane queuesStatusScene;
@@ -80,6 +76,8 @@ public class MainMenu implements Initializable {
 
 			this.queuesStatusScene = (Pane) FXMLLoader.load(getClass().getResource("/fxml/QueuesStatus.fxml"));
 
+			mMenu = this;
+			bank = Main.bank;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,11 +99,13 @@ public class MainMenu implements Initializable {
 	@FXML
 	void switch2QueuesStatus(ActionEvent event) {
 		switch2(visualizeQueueStatus, queuesStatusScene);
+		QueuesStatus.getInstance().updateQueues();
 	}
 
 	@FXML
 	void switch2UserOperations(ActionEvent event) {
 		switch2(userOperations, usersOperationScene);
+		UserOperations.getInstance().updatePersonInformation();
 	}
 
 	@FXML
@@ -165,4 +165,56 @@ public class MainMenu implements Initializable {
 		System.exit(0);
 	}
 
+	@FXML
+    void nextTurnPriority(ActionEvent event) {
+		boolean result = bank.nextInPriorityQueue();
+		if (result) {
+			switch2UserOperations(null);
+			updateQueueStatus();
+			updatePersonInformation();
+		}
+    }
+
+    @FXML
+    void nextTurnRegular(ActionEvent event) {
+    	boolean result = bank.nextInRegularQueue();
+    	if(result) {
+    		switch2UserOperations(null);
+    		updateQueueStatus();
+    		updatePersonInformation();
+    	}
+    	
+    }
+
+	
+	public static MainMenu getInstance() {
+		return mMenu;
+	}
+	
+	public void updatePersonInformation() {
+
+		UserOperations.getInstance().updatePersonInformation();
+		
+	}
+	
+	public void updateQueueStatus() {
+		int priorityNumber = bank.getPriorityQueueSize();
+		int regularNumber = bank.getRegularQueueSize();
+		
+		if(priorityNumber == 0) {
+			currentTurnPriorityQueue.setText("None");
+		}else {
+			currentTurnPriorityQueue.setText(priorityNumber + "");
+		}
+		
+		if(regularNumber == 0) {
+			currentTurnRegularQueue.setText("None");
+		}else {
+			currentTurnRegularQueue.setText(regularNumber + "");
+		}
+		
+	}
+	
+	
+	
 }
