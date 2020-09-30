@@ -18,7 +18,7 @@ public class InsertionSorter<E> extends SortingAlgorithm<E> {
 
 	@Override
 	public void sort(List<E> list) {
-		insertionSort(list, 0, list.size() - 1);
+		insertionSort(list);
 	}
 
 	/**
@@ -28,11 +28,11 @@ public class InsertionSorter<E> extends SortingAlgorithm<E> {
 	 * @param left,  int, the index from which sorting is done.
 	 * @param right, int, the index until which sorting is done.
 	 */
-	private void insertionSort(List<E> list, int left, int right) {
-		for (int i = left + 1; i <= right; i++) {
+	private void insertionSort(List<E> list) {
+		for (int i = 1; i < list.size(); i++) {
 			E temp = list.get(i);
 			int j = i - 1;
-			while (j >= left && comp.compare(list.get(j), temp) > 0) {
+			while (j >= 0 && comp.compare(list.get(j), temp) > 0) {
 				list.set(j + 1, list.get(j));
 				j--;
 			}
