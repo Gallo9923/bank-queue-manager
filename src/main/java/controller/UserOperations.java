@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.NumberValidator;
@@ -12,8 +14,16 @@ import com.jfoenix.validation.NumberValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import model.Bank;
 import model.Client;
 import model.Person;
@@ -128,31 +138,46 @@ public class UserOperations extends AnchorPane implements Initializable {
 		} else {
 			try {
 				double amount = Double.parseDouble(operationTextField.getText());
-				switch (currentOperation) {
-				case NONE:
-					break;
-				case WITHDRAWAL:
-					bank.withdraw(amount);
-					break;
-				case DEPOSIT:
-					bank.deposit(amount);
-					break;
-				case CARD_PAYMENT:
-					bank.payCreditCard(amount);
-					break;
-				default:
-					break;
+				
+				if(amount <= 0) {
+					errorDialog();
+				}else {
+					switch (currentOperation) {
+					case NONE:
+						break;
+					case WITHDRAWAL:
+						bank.withdraw(amount);
+						break;
+					case DEPOSIT:
+						bank.deposit(amount);
+						break;
+					case CARD_PAYMENT:
+						bank.payCreditCard(amount);
+						break;
+					default:
+						break;
+					}
 				}
-
 				
-				
-
 			} catch (NumberFormatException e) {
-				e.printStackTrace();
+				errorDialog();
 			}
 		}
 		updatePersonInformation();
 		setCurrentState(Operation.NONE);
+	}
+
+	
+	
+	private void errorDialog() {
+		
+		ButtonType custom_OK_Button = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+		Alert alert = new Alert(AlertType.INFORMATION, "The number must be greater than cero", custom_OK_Button);
+		alert.setTitle("Alert!");
+		alert.setHeaderText("Input format mismatch");
+		alert.showAndWait();
+		
+		
 	}
 
 	@FXML
@@ -233,7 +258,7 @@ public class UserOperations extends AnchorPane implements Initializable {
 
 		}
 	}
-	
+
 	private void enableOperationButtons() {
 		withdrawalBtn.setDisable(false);
 		depositBtn.setDisable(false);
@@ -251,11 +276,11 @@ public class UserOperations extends AnchorPane implements Initializable {
 		submitBtn.setDisable(true);
 		updateUndoButton();
 	}
-	
+
 	private void updateUndoButton() {
-		if(bank.isUndoPossible()) {
+		if (bank.isUndoPossible()) {
 			undoBtn.setDisable(false);
-		}else {
+		} else {
 			undoBtn.setDisable(true);
 		}
 	}
