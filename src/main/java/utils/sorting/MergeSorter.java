@@ -56,7 +56,7 @@ class MergeSorter<E> extends SortingAlgorithm<E> {
 	 * Merges two already sorted lists into another that maintains the sorting
 	 * property specified by {@link Comparator<E>} comp.<br>
 	 * 
-	 * <b>pre:</b> n = m+1 or m = n+1, exclusively.<br>
+	 * <b>pre:</b> rightList and leftList are already sorted<br>
 	 * 
 	 * <b>post:</b> The elements of {@link List<E>} list will be sorted in-place.
 	 * 
@@ -68,10 +68,9 @@ class MergeSorter<E> extends SortingAlgorithm<E> {
 	 *                   the same as <b>rightList</b> elements.
 	 */
 	public void merge(List<E> list, List<E> leftList, List<E> rightList) {
-		int leftPointer = 0;
-		int rightPointer = 0;
-		int resultPointer = 0;
-
+		int leftPointer, rightPointer, resultPointer;
+		leftPointer = rightPointer = resultPointer = 0;
+		
 		while (leftPointer < leftList.size() || rightPointer < rightList.size()) {
 
 			if (leftPointer < leftList.size() && rightPointer < rightList.size()) {

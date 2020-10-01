@@ -25,6 +25,14 @@ public class Sorter {
 		return new MergeSorter<E>(comp).sorted(list);
 	}
 
+	public static <E> void timSort(List<E> list, Comparator<E> comp) {
+		new TimSorter<E>(comp).sort(list);
+	}
+
+	public static <E> List<E> timSorted(List<E> list, Comparator<E> comp) {
+		return new TimSorter<E>(comp).sorted(list);
+	}
+	
 	public static <E> void heapSort(List<E> list, Comparator<E> comp) {
 		new HeapSorter<>(comp).sort(list);
 	}
