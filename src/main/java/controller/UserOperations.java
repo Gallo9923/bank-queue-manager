@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -126,6 +127,7 @@ public class UserOperations extends AnchorPane implements Initializable {
 		if (currentOperation == Operation.ACCOUNT_CANCELATION) {
 			if (bank.getCurrentPerson() != null) {
 				bank.cancelAccount(bank.getCurrentPerson().getIdentification(), description.getText(), LocalDate.now());
+				description.setText("");
 			}
 
 		} else {
@@ -227,12 +229,14 @@ public class UserOperations extends AnchorPane implements Initializable {
 			if (currentPerson instanceof Client) {
 
 				Client currentClient = (Client) currentPerson;
+				NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		
 				idLabel.setText(currentClient.getIdentification() + "");
 				nameLabel.setText(currentClient.getName());
 				accountLabel.setText(currentClient.getAccountNumber() + "");
 				enrollmentDateLabel.setText(currentClient.getRegistrationDate().toString());
-				cashLabel.setText(currentClient.getMoney() + "");
-				debtLabel.setText(currentClient.getDebt() + "");
+				cashLabel.setText(formatter.format(currentClient.getMoney()) + "");
+				debtLabel.setText(formatter.format(currentClient.getDebt()) + "");
 				paymentDateLabel.setText(currentClient.getPaymentDate() + "");
 
 				enableOperationButtons();
