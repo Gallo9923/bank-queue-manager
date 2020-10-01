@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.control.Label;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXComboBox;
@@ -106,12 +107,14 @@ public class UsersTable extends AnchorPane implements Initializable {
 				Client client = bank.searchClient(id);
 				
 				if(client != null) {
+					NumberFormat formatter = NumberFormat.getCurrencyInstance();
+					
 					idLabell.setText(client.getIdentification() + "");
 					nameLabell.setText(client.getName());
 					accountLabell.setText(client.getAccountNumber() + "");
 					enrollmentDateLabell.setText(client.getRegistrationDate() + "");
-					cashLabell.setText(client.getMoney() + "");
-					debtLabell.setText(client.getDebt() + "");
+					cashLabell.setText(formatter.format(client.getMoney()) + "");
+					debtLabell.setText(formatter.format(client.getDebt()) + "");
 					paymentDateLabell.setText(client.getPaymentDate() + "");
 				}else {
 					idLabell.setText("None");
@@ -193,7 +196,7 @@ public class UsersTable extends AnchorPane implements Initializable {
 		timeColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("timeSinceRegistration"));
 		timeColumn.setStyle("-fx-alignment: CENTER");
 
-		cashColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("money"));
+		cashColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("MoneyFormatted"));
 		cashColumn.setStyle("-fx-alignment: CENTER");
 	}
 

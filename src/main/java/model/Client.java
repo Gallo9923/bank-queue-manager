@@ -1,5 +1,6 @@
 package model;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -159,7 +160,7 @@ public class Client extends Person {
 
 		Period period = Period.between(this.registrationDate, LocalDate.now());
 
-		return "Years: " + period.getYears() + " Months: " + period.getMonths() + " Days: " + period.getDays();
+		return "Y: " + period.getYears() + " M: " + period.getMonths() + " D: " + period.getDays();
 
 	}
 
@@ -201,7 +202,7 @@ public class Client extends Person {
 	}
 
 	public double getMoney() {
-
+		
 		boolean found = false;
 		double result = 0;
 		for (int i = 0; i < products.size() && !found; i++) {
@@ -212,6 +213,11 @@ public class Client extends Person {
 		}
 
 		return result;
+	}
+	
+	public String getMoneyFormatted() {
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		return formatter.format(getMoney());
 	}
 
 	public boolean isOperationsEmpty() {
