@@ -189,6 +189,27 @@ public class TestSorter {
 		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
 	}
 
+	@Test
+	public void testTimSort1() {
+		setupSorting1();
+		List<Integer> output = Sorter.timSorted(input, comp);
+		assertTrue(failMessage(expectedOutput, input), output.equals(expectedOutput));
+	}
+
+	@Test
+	public void testTimSort2() {
+		setupSorting2();
+		Sorter.timSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+
+	@Test
+	public void testTimSort3() {
+		setupSorting3();
+		Sorter.timSort(input, comp);
+		assertTrue(failMessage(expectedOutput, input), input.equals(expectedOutput));
+	}
+	
 	public static <E> String failMessage(List<E> expectedList, List<E> actualList) {
 		return "List is " + actualList + " but should be " + expectedList;
 	}
