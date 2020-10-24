@@ -17,3 +17,9 @@ App Demo:
 
 ## Documentation
 [Documentation can be found here](https://drive.google.com/file/d/1XkH7qd8txhinFQeQJIvqWEo_jHGla2UH/view?usp=sharing "Documentation")
+
+## Changes 
+
+- All phases of engineering method report
+
+In the Google Docs document there exists a version called "Milestone 2" which contains the new changes done and can be compared with the older version of the documentation

@@ -61,7 +61,7 @@ public class HashTable<K, V>  implements IHashTable<K, V>{
 	}
 
 	private int getIndex(int hashCode, int i) {
-		return hash2Index(hashCode + ((i << 5) - i));
+		return hash2Index(hashCode + ((i << 5) - i)); // x 31
 	}
 	
 	@Override
