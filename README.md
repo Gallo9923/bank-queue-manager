@@ -23,3 +23,13 @@ App Demo:
 - All phases of engineering method report
 
 In the Google Docs document there exists a version called "Milestone 2" which contains the new changes done and can be compared with the older version of the documentation
+
+## Technical requirements
+
+- Java 8 
+
+Built using
+
+Java version "1.8.0_31"
+Java(TM) SE Runtime Environment (build 1.8.0_31-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.31-b07, mixed mode)
